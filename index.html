@@ -69,8 +69,9 @@
   }
   
   .logo-image {
-    height: 60px;
+    height: 160px;
     width: auto;
+    filter: brightness(0) invert(1);
   }
   
   .eyebrow {
@@ -322,7 +323,7 @@
   }
   
   .scripture-intro {
-    background: white;
+    background: rgba(255, 192, 203, 0.15);
     border-left: 3px solid #d946a6;
     padding: 1rem;
     margin: 0 0 1rem 0;
@@ -742,7 +743,7 @@
     <div class="botanical-accent bottom-left">🍃</div>
     
     <div class="logo-section">
-      <img src="logos/1.png" alt="Logo" class="logo-image" style="filter: brightness(0) invert(1);">
+      <img src="logos/1.png" alt="Logo" class="logo-image">
     </div>
     
     <div class="eyebrow">Interactive Swipe File</div>
@@ -806,7 +807,7 @@
     <div class="cta-highlight">
       <p class="cta-highlight-text">First 50 people only. Registration closes <span class="deadline">May 24</span>.</p>
     </div>
-    <button class="cta-button" onclick="window.parent.postMessage({type: 'open_url', url: 'https://nickellsblossominggarden.com/challenge'}, '*')">Register for the Challenge ($27)</button>
+    <button class="cta-button" onclick="window.open('https://buy.stripe.com/28E3cneKA7RRaj5dpY2ZO05', '_blank')">Register for the Challenge ($27)</button>
   </div>
 </div>
 
