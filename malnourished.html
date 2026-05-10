@@ -6,6 +6,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Access Code Modal */
+  #access-modal {
+    position: fixed;
+    inset: 0;
+    background: #334722;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  #access-modal.hidden {
+    display: none;
+  }
+
+  .modal-logo {
+    width: 160px;
+    filter: brightness(0) invert(1);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .modal-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    max-width: 320px;
+  }
+
+  #modal-input {
+    padding: 14px 20px;
+    border-radius: 8px;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: white;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 4px;
+    width: 220px;
+    font-family: 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #modal-input:focus {
+    border-color: #f9d53d;
+  }
+
+  #modal-btn {
+    background: #ee3c8a;
+    color: white;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  #modal-btn:hover {
+    background: #d946a6;
+    transform: translateY(-1px);
+  }
+
+  #modal-error {
+    color: #f9d53d;
+    font-size: 14px;
+    min-height: 20px;
+    text-align: center;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-8px); }
+    80% { transform: translateX(8px); }
+  }
+
+  .shake {
+    animation: shake 0.4s ease;
+  }
+
+  /* Footer badge */
+  #footer-badge {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 90px;
+    height: 90px;
+    z-index: 100;
+  }
   
   body {
     font-family: 'Nunito Sans', sans-serif;
@@ -669,13 +773,23 @@
 </head>
 <body>
 
+<!-- Access Code Modal -->
+<div id="access-modal">
+  <img src="2.png" alt="Logo" class="modal-logo">
+  <div class="modal-title">Enter Your Access Code</div>
+  <p class="modal-subtitle">Enter the access code from your purchase to unlock your 21-day plan.</p>
+  <input type="password" id="modal-input" placeholder="••••" maxlength="20" onkeydown="if(event.key==='Enter') checkCode()">
+  <button id="modal-btn" onclick="checkCode()">Unlock</button>
+  <div id="modal-error"></div>
+</div>
+
 <div class="container">
   <div class="header">
     <div class="botanical-accent top-right">✨</div>
     <div class="botanical-accent bottom-left">🌻</div>
     
     <div class="logo-section">
-      <img src="https://raw.githubusercontent.com/yourusername/yourrepo/main/logo-foodforrx.png" alt="Food for RX" class="logo-image">
+      <img src="2.png" alt="Food for RX" style="width:160px;height:auto;filter:brightness(0) invert(1);">
     </div>
     
     <div class="eyebrow">Malnourished Tier · 21-Day Plan</div>
@@ -707,10 +821,12 @@
       <div class="cta-eyebrow">Continue Your Journey</div>
       <h2 class="cta-title">You've Completed 21 Days. Now Go Deeper.</h2>
       <p class="cta-text">You've rebalanced your body and soul. Now continue the transformation with the 9 Aisles Prayer Journal—a 30-day interactive journey through each category with daily prompts, scripture, and space to process what God is teaching you about nourishment.</p>
-      <button class="cta-button" onclick="window.parent.postMessage({type: 'open_url', url: 'https://nickellsblossominggarden.com/prayer-journal'}, '*')">Get the 9 Aisles Prayer Journal ($17)</button>
+      <button class="cta-button" onclick="window.open('https://buy.stripe.com/5kQbITeKA4FF1MzdpY2ZO06', '_blank')">Get the 9 Aisles Prayer Journal ($17)</button>
     </div>
   </div>
 </div>
+
+<img id="footer-badge" src="3.png" alt="Badge">
 
 <script>
 const days = [
@@ -1216,11 +1332,64 @@ function updateProgress() {
 }
 
 function setReminder() {
-  alert('Daily reminder feature coming soon! For now, set a phone alarm for your preferred time.');
+  if (!('Notification' in window)) {
+    alert('Your browser does not support notifications. Please set a manual alarm.');
+    return;
+  }
+  Notification.requestPermission().then(permission => {
+    if (permission === 'granted') {
+      localStorage.setItem('malnourished_reminder', 'true');
+      alert('Daily reminder set! You will receive notifications to complete your daily action.');
+    } else {
+      alert('Notification permission denied. Please enable notifications in your browser settings.');
+    }
+  });
 }
 
 function exportPDF() {
-  alert('PDF export feature coming soon! Take screenshots to save your progress.');
+  const lines = ['Nourishment Protocols – Malnourished Tier – Progress Report', ''];
+  days.forEach(day => {
+    const data = dayData[day.day];
+    const status = completedDays.has(day.day) ? 'Complete' : 'Incomplete';
+    lines.push(`Day ${day.day}: ${day.title} [${status}]`);
+    if (data.reflection.trim()) {
+      lines.push(`  Reflection: ${data.reflection.trim()}`);
+    }
+    if (data.habit1) lines.push(`  Habit 1: ${data.habit1}`);
+    if (data.habit2) lines.push(`  Habit 2: ${data.habit2}`);
+    if (data.habit3) lines.push(`  Habit 3: ${data.habit3}`);
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'nourishment-progress.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* Access code modal */
+const ACCESS_CODE = '1234';
+const ACCESS_KEY = 'malnourished_access_code';
+
+function checkCode() {
+  const input = document.getElementById('modal-input');
+  const error = document.getElementById('modal-error');
+  if (input.value.trim() === ACCESS_CODE) {
+    localStorage.setItem(ACCESS_KEY, 'true');
+    document.getElementById('access-modal').classList.add('hidden');
+  } else {
+    error.textContent = 'Incorrect code. Please try again.';
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    input.value = '';
+  }
+}
+
+if (localStorage.getItem(ACCESS_KEY) === 'true') {
+  document.getElementById('access-modal').classList.add('hidden');
 }
 
 initializeDayData();
