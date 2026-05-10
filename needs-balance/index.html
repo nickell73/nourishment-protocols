@@ -2751,17 +2751,28 @@ document.getElementById('gapCloserModal').addEventListener('click', function(e) 
 });
 
 /* ── Access-code gate ── */
-const VALID_CODE = 'BALANCE2025';
+(function () {
+  if (localStorage.getItem('needs_balance_access_code') === '1234') {
+    document.getElementById('access-modal').classList.add('hidden');
+  }
+  document.getElementById('access-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') checkAccessCode();
+  });
+})();
 
 function checkAccessCode () {
-  const input = document.getElementById('access-input');
-  const err   = document.getElementById('access-error');
-  if (input.value.trim().toUpperCase() === VALID_CODE) {
+  var input = document.getElementById('access-input');
+  var err   = document.getElementById('access-error');
+  if (input.value.trim() === '1234') {
+    localStorage.setItem('needs_balance_access_code', '1234');
     document.getElementById('access-modal').classList.add('hidden');
     err.textContent = '';
   } else {
     err.textContent = 'Incorrect code. Please try again.';
+    input.classList.remove('shake');
+    void input.offsetWidth;
     input.classList.add('shake');
+    input.value = '';
     setTimeout(function () { input.classList.remove('shake'); }, 450);
   }
 }
