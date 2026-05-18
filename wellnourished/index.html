@@ -766,8 +766,16 @@
   }
   
   @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 1rem 2rem;
+    }
+
     .hero-title {
       font-size: 38px;
+    }
+
+    .content {
+      padding: 2rem 1rem;
     }
 
     .score-grid {
@@ -776,6 +784,21 @@
 
     .badges-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .welcome-card,
+    .dashboard,
+    .progress-tracker,
+    .collapsible-section {
+      padding: 1.5rem;
+    }
+
+    .section-toggle {
+      padding: 1rem 1.5rem;
+    }
+
+    .section-content.active {
+      padding: 1.5rem;
     }
   }
 
@@ -1271,9 +1294,9 @@
       <div class="cta-card">
         <div class="cta-eyebrow">Close Specific Gaps</div>
         <h3 class="cta-title">The Balance Blueprint</h3>
-        <p class="cta-text">Root cause quizzes and 21-day protocols for any category needing targeted attention. Precision tools for fine-tuning.</p>
-        <div class="cta-price">$5</div>
-        <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/balance-blueprint', '_blank')">Get Balance Blueprint</button>
+        <p class="cta-text">Root cause quizzes and 21-day protocols for any tier you want to explore beyond your gifted protocol.</p>
+        <div class="cta-price">$7</div>
+        <button class="cta-button" onclick="window.open('https://buy.stripe.com/14AbITcCs5JJ2QDfy62ZO02', '_blank')">Get Balance Blueprint</button>
       </div>
     </div>
   </div>
@@ -1490,7 +1513,7 @@ function openDeepDive(catId) {
     <p style="font-size: 14px; color: #666; margin-bottom: 1.5rem;">
       <strong>Note:</strong> The full Balance Blueprint quiz and protocol system will open here. For now, we recommend accessing the complete Balance Blueprint tool ($5) for the full interactive experience.
     </p>
-    <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/balance-blueprint', '_blank')">Access Full Balance Blueprint</button>
+    <button class="cta-button" onclick="window.open('https://buy.stripe.com/14AbITcCs5JJ2QDfy62ZO02', '_blank')">Get Balance Blueprint ($7)</button>
   `;
   document.getElementById('maintenanceModal').classList.add('active');
 }
