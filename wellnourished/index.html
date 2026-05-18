@@ -38,7 +38,14 @@
     position: relative;
     overflow: hidden;
   }
-  
+
+  .hero-logo {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
   .hero::before {
     content: '';
     position: absolute;
@@ -359,6 +366,11 @@
     border-color: #f9d53d;
     background: #fffef5;
   }
+
+  .category-card.priority {
+    border-color: var(--pink-accent);
+    background: #fff5f8;
+  }
   
   .category-header {
     display: flex;
@@ -408,6 +420,10 @@
   
   .score-fill.needs-attention {
     background: linear-gradient(90deg, #f4c430 0%, #f9d53d 100%);
+  }
+
+  .score-fill.priority {
+    background: linear-gradient(90deg, #ee3c8a 0%, #ff6ba8 100%);
   }
   
   .score-number {
@@ -899,6 +915,9 @@
 
 <div class="container">
   <div class="hero">
+    <div class="hero-logo">
+      <img src="../2.png" alt="Food for RX" style="height: 50px; opacity: 0.9;">
+    </div>
     <div class="hero-content">
       <div class="badge-earned">
         <span>🏆</span>
@@ -1260,7 +1279,7 @@
   </div>
   
   <div class="footer">
-    <img src="2.png" alt="Food for RX" class="footer-logo">
+    <img src="../2.png" alt="Food for RX" class="footer-logo">
   </div>
 </div>
 
@@ -1363,11 +1382,25 @@ function renderBadges() {
 function renderDashboard() {
   const thriving = categories.filter(cat => userScores[cat.id] >= 71);
   const attention = categories.filter(cat => userScores[cat.id] >= 51 && userScores[cat.id] <= 70);
-  
+  const priority = categories.filter(cat => userScores[cat.id] < 51);
+
   const container = document.getElementById('dashboardContent');
-  
+
   let html = '';
-  
+
+  if (priority.length > 0) {
+    html += `
+      <div class="zone-section">
+        <div class="zone-header">
+          <span class="zone-icon">⚠️</span>
+          <span class="zone-title">Priority (Address First)</span>
+          <span class="zone-count">${priority.length} categories</span>
+        </div>
+        ${priority.map(cat => renderCategoryCard(cat, 'priority')).join('')}
+      </div>
+    `;
+  }
+
   if (thriving.length > 0) {
     html += `
       <div class="zone-section">
@@ -1380,7 +1413,7 @@ function renderDashboard() {
       </div>
     `;
   }
-  
+
   if (attention.length > 0) {
     html += `
       <div class="zone-section">
@@ -1393,7 +1426,7 @@ function renderDashboard() {
       </div>
     `;
   }
-  
+
   container.innerHTML = html;
 }
 
