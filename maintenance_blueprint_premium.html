@@ -753,14 +753,145 @@
     .hero-title {
       font-size: 38px;
     }
-    
+
     .score-grid {
       grid-template-columns: 1fr;
     }
-    
+
     .badges-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+  }
+
+  /* Collapsible Content Sections */
+  .content-sections {
+    margin: 3rem 0;
+  }
+
+  .collapsible-section {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+
+  .section-toggle {
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: left;
+  }
+
+  .section-toggle:hover {
+    background: #f9fdf5;
+  }
+
+  .section-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .section-toggle-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    flex: 1;
+  }
+
+  .toggle-arrow {
+    font-size: 18px;
+    color: var(--green-primary);
+    transition: transform 0.3s;
+  }
+
+  .section-toggle.active .toggle-arrow {
+    transform: rotate(180deg);
+  }
+
+  .section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding: 0 2rem;
+  }
+
+  .section-content.active {
+    max-height: 5000px;
+    padding: 2rem;
+  }
+
+  .content-subheading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .content-heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .content-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+    margin-bottom: 1rem;
+  }
+
+  .content-list {
+    margin: 0.75rem 0 1.5rem 1.5rem;
+    padding: 0;
+  }
+
+  .content-list li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+    margin-bottom: 0.5rem;
+  }
+
+  .red-flag-item {
+    background: #fffef5;
+    border-left: 4px solid #f9d53d;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+
+  .red-flag-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2d2d2d;
+    margin-bottom: 0.5rem;
+  }
+
+  .scripture-box {
+    background: #f9fdf5;
+    border-left: 4px solid var(--green-primary);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+  }
+
+  .scripture-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--green-dark);
+    line-height: 1.7;
+    margin: 0;
   }
 </style>
 </head>
@@ -774,25 +905,19 @@
         <span>Well Nourished Tier</span>
       </div>
       <h1 class="hero-title">The Maintenance Blueprint</h1>
-      <p class="hero-subtitle">You've done the work. You're nourished in body and soul. Now sustain what you've built and keep thriving across all 9 Aisles.</p>
+      <p class="hero-subtitle">Stewarding Health & Multiplying Wholeness<br><br>You've done the work. You're nourished in body and soul. Now it's time to sustain what you've built and help others get here too. This blueprint shows you how to maintain your health, recognize when you're slipping, and become a guide for others on the same journey.</p>
     </div>
   </div>
   
   <div class="content">
     <div class="welcome-card">
-      <p class="welcome-text">
-        Congratulations on reaching the Well Nourished tier! This blueprint is designed to help you maintain your health, recognize early warning signs, and stay anchored in the rhythms that got you here.
-      </p>
-      
-      <p class="welcome-text">
-        <strong>To get started:</strong> Enter your 9 Aisles quiz scores below. This creates ownership of your journey and unlocks your personalized maintenance plan, achievement badges, and progress tracking tools.
-      </p>
-      
+      <div id="welcomeMessage"></div>
+
       <div class="score-input-section">
         <div class="input-title">Enter Your 9 Aisles Scores</div>
-        
+
         <div class="score-grid" id="scoreInputGrid"></div>
-        
+
         <button class="calculate-btn" onclick="calculateResults()">Generate My Blueprint</button>
       </div>
     </div>
@@ -808,7 +933,247 @@
         
         <div id="dashboardContent"></div>
       </div>
-      
+
+      <!-- Three Collapsible Content Sections -->
+      <div class="content-sections">
+
+        <div class="collapsible-section">
+          <button class="section-toggle" onclick="toggleSection('maintenance')">
+            <span class="section-icon">🌿</span>
+            <span class="section-toggle-title">How to Stay Well Nourished</span>
+            <span class="toggle-arrow">▼</span>
+          </button>
+          <div class="section-content" id="maintenance-content">
+            <h3 class="content-subheading">Maintenance Habits for Long-Term Health</h3>
+
+            <h4 class="content-heading">Monthly Check-Ins</h4>
+            <p class="content-text">Review all 9 categories once per month. Ask yourself:</p>
+            <ul class="content-list">
+              <li>Am I still eating protein at every meal?</li>
+              <li>Am I drinking spring water daily?</li>
+              <li>Am I casting my anxieties on the Lord or hoarding them?</li>
+            </ul>
+            <p class="content-text">Use the same assessment you took to get here—retake it quarterly to track your progress.</p>
+
+            <h4 class="content-heading">The 90/10 Rule</h4>
+            <p class="content-text">When you're well nourished, you have more margin for grace.</p>
+            <ul class="content-list">
+              <li>90% nutrient-dense whole foods, 10% flexibility for life</li>
+              <li>Grace doesn't mean abandoning wisdom—it means freedom within boundaries</li>
+            </ul>
+
+            <h4 class="content-heading">Early Warning Signs</h4>
+            <p class="content-text"><strong>Physical:</strong></p>
+            <ul class="content-list">
+              <li>Energy crashes returning</li>
+              <li>Digestive issues resurfacing</li>
+              <li>Cravings for processed junk</li>
+              <li>Sleep disruption</li>
+            </ul>
+
+            <p class="content-text"><strong>Spiritual:</strong></p>
+            <ul class="content-list">
+              <li>Impatience creeping back in</li>
+              <li>Anxiety replacing peace</li>
+              <li>Bitterness toward others</li>
+              <li>Joy deficit (circumstance-based emotions)</li>
+            </ul>
+
+            <p class="content-text"><strong>When you notice these:</strong> Don't panic—just return to basics in that specific category.</p>
+
+            <h4 class="content-heading">Anchoring Rhythms</h4>
+            <p class="content-text"><strong>Daily:</strong></p>
+            <ul class="content-list">
+              <li>Morning: Spring water + God's Word</li>
+              <li>Protein at every meal</li>
+              <li>Movement (walk, stretch, dance)</li>
+            </ul>
+
+            <p class="content-text"><strong>Weekly:</strong></p>
+            <ul class="content-list">
+              <li>Meal prep session</li>
+              <li>Sabbath rest</li>
+              <li>Community connection</li>
+            </ul>
+
+            <p class="content-text"><strong>Monthly:</strong></p>
+            <ul class="content-list">
+              <li>Reflection + course correction</li>
+              <li>Review all 9 categories</li>
+            </ul>
+
+            <p class="content-text"><strong>Quarterly:</strong></p>
+            <ul class="content-list">
+              <li>Deep assessment (retake the 9 Aisles quiz)</li>
+            </ul>
+
+            <div class="scripture-box">
+              <p class="scripture-text">"Moreover it is required in stewards that one be found faithful." — 1 Corinthians 4:2</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapsible-section">
+          <button class="section-toggle" onclick="toggleSection('slippage')">
+            <span class="section-icon">⚠️</span>
+            <span class="section-toggle-title">How to Recognize Slippage (Before It Becomes a Problem)</span>
+            <span class="toggle-arrow">▼</span>
+          </button>
+          <div class="section-content" id="slippage-content">
+            <h3 class="content-subheading">Catch the Drift Early</h3>
+
+            <h4 class="content-heading">The Drift is Gradual</h4>
+            <p class="content-text">You don't go from well nourished to starving overnight. It happens one skipped meal, one anxious night, one bitter thought at a time. The key is <strong>awareness before crisis</strong>.</p>
+
+            <h4 class="content-heading">Category-Specific Red Flags</h4>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🥩 Protein / Love (Cardiovascular)</p>
+              <ul class="content-list">
+                <li>Feeling drained after interactions with people</li>
+                <li>Avoiding difficult people instead of loving them well</li>
+                <li>Resentment building after giving</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🍠 Carbs / Patience (Muscular)</p>
+              <ul class="content-list">
+                <li>Reactive frustration returning</li>
+                <li>Energy crashes mid-afternoon</li>
+                <li>Impatience with long seasons</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">💧 Water / Peace (Respiratory)</p>
+              <ul class="content-list">
+                <li>Anxiety interrupting your day</li>
+                <li>Shallow breathing or holding your breath</li>
+                <li>Peace dependent on circumstances being resolved</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🧂 Salt / Influence (Lymphatic)</p>
+              <ul class="content-list">
+                <li>Withholding mercy from offenders</li>
+                <li>Hardness toward people who hurt you</li>
+                <li>Refusing to be a voice of kindness</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🥬 Vitamins / Goodness (Skeletal)</p>
+              <ul class="content-list">
+                <li>Questioning God's character in trials</li>
+                <li>Doubting His goodness when life is hard</li>
+                <li>Structural faith wavering</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🥑 Healthy Fats / Faithfulness (Endocrine)</p>
+              <ul class="content-list">
+                <li>Fight-or-flight mode becoming your default</li>
+                <li>Fear winning over trust</li>
+                <li>Inconsistency in spiritual disciplines</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🍳 Kitchen / Gentleness (Digestive)</p>
+              <ul class="content-list">
+                <li>Defensive when corrected</li>
+                <li>Takeout replacing home cooking</li>
+                <li>Harsh responses to feedback</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">🌱 Seeds / Self-Control (Reproductive)</p>
+              <ul class="content-list">
+                <li>Impulse purchases increasing</li>
+                <li>Instant gratification winning over delayed reward</li>
+                <li>Short-term thinking replacing legacy mindset</li>
+              </ul>
+            </div>
+
+            <div class="red-flag-item">
+              <p class="red-flag-title">⚡ Freedom / Joy (Nervous)</p>
+              <ul class="content-list">
+                <li>Circumstance-based emotions ruling your days</li>
+                <li>Seeking comfort in wrong places (food, screens, escapism)</li>
+                <li>Joy dependent on things going well</li>
+              </ul>
+            </div>
+
+            <h4 class="content-heading">The Re-Calibration Protocol</h4>
+            <ol class="content-list">
+              <li><strong>Notice</strong> the drift without shame</li>
+              <li><strong>Identify</strong> which category is slipping</li>
+              <li><strong>Return</strong> to the 21-Day Protocol for that category (just that one—not all 9)</li>
+              <li><strong>Restore</strong> balance before it cascades into other areas</li>
+            </ol>
+
+            <div class="scripture-box">
+              <p class="scripture-text">"Take heed to yourself and to the doctrine. Continue in them, for in doing this you will save both yourself and those who hear you." — 1 Timothy 4:16</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapsible-section">
+          <button class="section-toggle" onclick="toggleSection('multiply')">
+            <span class="section-icon">🤝</span>
+            <span class="section-toggle-title">How to Help Others Get Here</span>
+            <span class="toggle-arrow">▼</span>
+          </button>
+          <div class="section-content" id="multiply-content">
+            <h3 class="content-subheading">From Well Nourished to Multiplier</h3>
+
+            <h4 class="content-heading">You Can't Give What You Don't Have</h4>
+            <p class="content-text">Leadership starts with your own nourishment. If you're depleted, you'll burn out trying to help others. Maintain your health FIRST, then multiply.</p>
+
+            <h4 class="content-heading">Three Levels of Help</h4>
+
+            <p class="content-text"><strong>Level 1: Model It</strong></p>
+            <p class="content-text">Let people see you eating real food, casting anxiety, showing costly kindness. Your life becomes a living testimony: "It's possible to be nourished." Don't preach—just live it consistently.</p>
+
+            <p class="content-text"><strong>Level 2: Share What Worked</strong></p>
+            <p class="content-text">When someone asks, "How are you so steady / joyful / healthy?"—tell them.</p>
+            <p class="content-text">Share your journey: "I used to crash every afternoon until I started pairing complex carbs with healthy fats."</p>
+            <p class="content-text">Give them the specific tools that transformed you (protocols, scriptures, practices).</p>
+
+            <p class="content-text"><strong>Level 3: Walk Alongside Them</strong></p>
+            <p class="content-text">This is discipleship: you've been there, now guide them through it.</p>
+            <ul class="content-list">
+              <li>Check in weekly</li>
+              <li>Pray with them</li>
+              <li>Celebrate wins</li>
+              <li>Course-correct when they drift</li>
+              <li>Point them back to the fundamentals when they get overwhelmed</li>
+            </ul>
+
+            <h4 class="content-heading">Common Mistakes When Helping Others</h4>
+            <ul class="content-list">
+              <li>❌ Expecting them to be where you are immediately (they need time)</li>
+              <li>❌ Giving them all 9 categories at once (they'll be overwhelmed—start with their worst category)</li>
+              <li>❌ Focusing only on physical OR spiritual (they need both—integrated)</li>
+              <li>❌ Shaming them for struggling (grace + truth, not condemnation)</li>
+            </ul>
+
+            <h4 class="content-heading">The Discipleship Question</h4>
+            <p class="content-text">"How you eating?"—physically and spiritually.</p>
+            <p class="content-text">This simple question opens the door to deeper conversations. Ask it regularly, listen well, point them to resources.</p>
+
+            <div class="scripture-box">
+              <p class="scripture-text">"And the things that you have heard from me among many witnesses, commit these to faithful men who will be able to teach others also." — 2 Timothy 2:2</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <div class="progress-tracker">
         <h2 class="section-title">Master Progress Tracker</h2>
         
@@ -872,7 +1237,7 @@
         <div class="cta-eyebrow">Deepen Your Walk</div>
         <h3 class="cta-title">The 9 Aisles Prayer Journal</h3>
         <p class="cta-text">30 days of scripture, reflection, and guided prayer for each category. Spiritual maturity meets nutritional wisdom.</p>
-        <div class="cta-price">$7</div>
+        <div class="cta-price">$17</div>
         <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/prayer-journal', '_blank')">Get Prayer Journal</button>
       </div>
       
@@ -880,7 +1245,7 @@
         <div class="cta-eyebrow">Simplify Planning</div>
         <h3 class="cta-title">Well Nourished Meal Planner</h3>
         <p class="cta-text">Interactive weekly meal planning tool. Balance all 9 Aisles, generate grocery lists, stay nourished effortlessly.</p>
-        <div class="cta-price">$7</div>
+        <div class="cta-price">$17</div>
         <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/meal-planner', '_blank')">Get Meal Planner</button>
       </div>
       
@@ -895,7 +1260,7 @@
   </div>
   
   <div class="footer">
-    <img src="/mnt/user-data/uploads/logo-foodforrx__1_.png" alt="Food for RX" class="footer-logo">
+    <img src="2.png" alt="Food for RX" class="footer-logo">
   </div>
 </div>
 
@@ -960,6 +1325,7 @@ function renderScoreInputs() {
 }
 
 function calculateResults() {
+  displayWelcomeMessage();
   categories.forEach(cat => {
     const input = document.getElementById(`score-${cat.id}`);
     userScores[cat.id] = parseInt(input.value) || 0;
@@ -1128,6 +1494,84 @@ function switchTab(tab) {
 }
 
 renderScoreInputs();
+
+// Function to determine message type based on scores
+function getWelcomeMessageType(scores) {
+  let thrivingCount = 0;
+  let needsAttentionCount = 0;
+  let priorityCount = 0;
+
+  scores.forEach(score => {
+    if (score >= 71) thrivingCount++;
+    else if (score >= 51) needsAttentionCount++;
+    else priorityCount++;
+  });
+
+  if (priorityCount > 0) return 'critical';
+  if (needsAttentionCount > 0) return 'gaps';
+  return 'thriving';
+}
+
+// Function to display adaptive welcome message
+function displayWelcomeMessage() {
+  const welcomeDiv = document.getElementById('welcomeMessage');
+  const scores = categories.map(cat => parseInt(document.getElementById(`score-${cat.id}`)?.value) || 0);
+  const messageType = getWelcomeMessageType(scores);
+
+  let message = '';
+
+  if (messageType === 'thriving') {
+    message = `
+      <p class="welcome-text">
+        Congratulations—you're well nourished across all 9 Aisles. Your scores show you're nourished in body and soul. Your job now is to maintain what you've built and help others get here too.
+      </p>
+      <p class="welcome-text">
+        This isn't about perfection—it's about stewardship. Below you'll find practical strategies for maintenance, early warning signs to watch for, and a pathway to help others reach the same place.
+      </p>
+      <p class="welcome-text">
+        <strong>To get started:</strong> Enter your 9 Aisles quiz scores below. This generates your personalized dashboard, achievement badges, and leadership pathway.
+      </p>
+    `;
+  } else if (messageType === 'gaps') {
+    message = `
+      <p class="welcome-text">
+        You've reached Well Nourished overall—impressive work. Most of your categories are thriving, but you have 1-2 areas that still need attention.
+      </p>
+      <p class="welcome-text">
+        Below, you'll see your strong areas (maintain these) and your growth areas (deep dive to close the gaps). Once all 9 are solid, you'll be ready to multiply.
+      </p>
+      <p class="welcome-text">
+        <strong>To get started:</strong> Enter your 9 Aisles quiz scores below. This generates your personalized dashboard with maintenance tips for thriving categories and targeted protocols for your gap areas.
+      </p>
+    `;
+  } else {
+    message = `
+      <p class="welcome-text">
+        You've scored Well Nourished overall, but you have at least one category that needs immediate attention. Before focusing on maintenance or leadership, let's stabilize your foundation first.
+      </p>
+      <p class="welcome-text">
+        Below, you'll see which categories are thriving, which need fine-tuning, and which require urgent intervention. We'll guide you to the right protocol for each.
+      </p>
+      <p class="welcome-text">
+        <strong>To get started:</strong> Enter your 9 Aisles quiz scores below. This generates your personalized dashboard and priority action steps.
+      </p>
+    `;
+  }
+
+  welcomeDiv.innerHTML = message;
+}
+
+// Function to toggle collapsible sections
+function toggleSection(sectionId) {
+  const content = document.getElementById(sectionId + '-content');
+  const button = content.previousElementSibling;
+
+  content.classList.toggle('active');
+  button.classList.toggle('active');
+}
+
+// Call displayWelcomeMessage on page load
+window.addEventListener('DOMContentLoaded', displayWelcomeMessage);
 </script>
 
 </body>
