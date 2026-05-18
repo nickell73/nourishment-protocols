@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --green-primary: #85ba5b;
+    --green-dark: #334722;
+    --green-light: #a8cc8b;
+    --pink-accent: #ee3c8a;
+    --cream: #fefdf0;
+    --cream-light: #fffef5;
+    --gold: #c9a347;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    padding: 0;
+    margin: 0;
+    color: #2d2d2d;
+  }
+  
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--cream-light);
+    min-height: 100vh;
+  }
+  
+  .hero {
+    background: linear-gradient(135deg, #334722 0%, #4a7c59 50%, #85ba5b 100%);
+    padding: 4rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(133, 186, 91, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(168, 204, 139, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .badge-earned {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.6s ease;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    animation: fadeIn 0.8s ease 0.2s both;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .hero-subtitle {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    font-weight: 400;
+    animation: fadeIn 0.8s ease 0.4s both;
+  }
+  
+  .content {
+    padding: 3rem 2rem;
+  }
+  
+  .welcome-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 3rem;
+    border: 1px solid rgba(133, 186, 91, 0.2);
+  }
+  
+  .welcome-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2d2d2d;
+    margin-bottom: 1.5rem;
+  }
+  
+  .score-input-section {
+    background: #f9fdf5;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .input-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  
+  .score-input-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  
+  .score-input-item:focus-within {
+    border-color: var(--green-primary);
+  }
+  
+  .score-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  
+  .score-input-details {
+    flex: 1;
+  }
+  
+  .score-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+  }
+  
+  .score-input {
+    width: 100%;
+    border: none;
+    background: #f5f5f5;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2d2d2d;
+  }
+  
+  .score-input:focus {
+    outline: 2px solid var(--green-primary);
+    background: white;
+  }
+  
+  .calculate-btn {
+    background: var(--pink-accent);
+    color: white;
+    padding: 16px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin: 2rem auto 0;
+    display: block;
+    box-shadow: 0 4px 15px rgba(238, 60, 138, 0.3);
+  }
+  
+  .calculate-btn:hover {
+    background: #d946a6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 60, 138, 0.4);
+  }
+  
+  .results-section {
+    display: none;
+  }
+  
+  .results-section.active {
+    display: block;
+  }
+  
+  .achievements-bar {
+    background: linear-gradient(135deg, var(--green-dark) 0%, #4a7c59 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    color: white;
+  }
+  
+  .achievements-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  
+  .badge {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  
+  .badge.earned {
+    background: rgba(201, 163, 71, 0.2);
+    border-color: var(--gold);
+    box-shadow: 0 4px 15px rgba(201, 163, 71, 0.3);
+  }
+  
+  .badge.locked {
+    opacity: 0.4;
+  }
+  
+  .badge-icon {
+    font-size: 36px;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .badge-name {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .badge.earned .badge-icon {
+    animation: bounce 0.6s ease;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .dashboard {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 3rem;
+  }
+  
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 2rem;
+  }
+  
+  .zone-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .zone-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--green-primary);
+    margin-bottom: 1.5rem;
+  }
+  
+  .zone-icon {
+    font-size: 24px;
+  }
+  
+  .zone-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+  
+  .zone-count {
+    margin-left: auto;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+  }
+  
+  .category-card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+  }
+  
+  .category-card.thriving {
+    border-color: var(--green-primary);
+    background: #f9fdf5;
+  }
+  
+  .category-card.needs-attention {
+    border-color: #f9d53d;
+    background: #fffef5;
+  }
+  
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1rem;
+  }
+  
+  .category-icon {
+    font-size: 32px;
+  }
+  
+  .category-info {
+    flex: 1;
+  }
+  
+  .category-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  
+  .score-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background: #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .score-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+  
+  .score-fill.thriving {
+    background: linear-gradient(90deg, var(--green-primary) 0%, var(--green-light) 100%);
+  }
+  
+  .score-fill.needs-attention {
+    background: linear-gradient(90deg, #f4c430 0%, #f9d53d 100%);
+  }
+  
+  .score-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: right;
+  }
+  
+  .category-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 1rem;
+  }
+  
+  .action-btn {
+    flex: 1;
+    background: var(--green-primary);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .action-btn:hover {
+    background: var(--green-dark);
+    transform: translateY(-1px);
+  }
+  
+  .action-btn.secondary {
+    background: var(--pink-accent);
+  }
+  
+  .action-btn.secondary:hover {
+    background: #d946a6;
+  }
+  
+  .weekly-checklist {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #e5e5e5;
+  }
+  
+  .weekly-checklist.active {
+    display: block;
+  }
+  
+  .checklist-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .checkbox-item:hover {
+    background: #f9fdf5;
+  }
+  
+  .custom-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--green-primary);
+    border-radius: 6px;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+  }
+  
+  .checkbox-item.checked .custom-checkbox {
+    background: var(--green-primary);
+  }
+  
+  .checkbox-item.checked .custom-checkbox::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .checkbox-label {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #2d2d2d;
+  }
+  
+  .progress-tracker {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    margin-bottom: 3rem;
+  }
+  
+  .tracker-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e5e5e5;
+  }
+  
+  .tracker-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+  }
+  
+  .tracker-tab.active {
+    color: var(--green-dark);
+    border-bottom-color: var(--green-primary);
+  }
+  
+  .tracker-content {
+    display: none;
+  }
+  
+  .tracker-content.active {
+    display: block;
+  }
+  
+  .rhythm-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .rhythm-card {
+    background: #f9fdf5;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--green-primary);
+  }
+  
+  .rhythm-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 2rem;
+  }
+  
+  .modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  
+  .modal-header {
+    background: linear-gradient(135deg, var(--green-primary) 0%, var(--green-light) 100%);
+    padding: 2rem;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .modal-close:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+  }
+  
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .modal-body {
+    padding: 2rem;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, #334722 0%, #4a7c59 100%);
+    padding: 4rem 2rem;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 30% 40%, rgba(133, 186, 91, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(168, 204, 139, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .cta-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  
+  .cta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  
+  .cta-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 1rem;
+  }
+  
+  .cta-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-price {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 1.5rem;
+  }
+  
+  .cta-button {
+    background: var(--pink-accent);
+    color: white;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+  
+  .cta-button:hover {
+    background: #d946a6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 60, 138, 0.4);
+  }
+  
+  .footer {
+    background: var(--green-dark);
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .footer-logo {
+    height: 40px;
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 38px;
+    }
+    
+    .score-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .badges-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge-earned">
+        <span>🏆</span>
+        <span>Well Nourished Tier</span>
+      </div>
+      <h1 class="hero-title">The Maintenance Blueprint</h1>
+      <p class="hero-subtitle">You've done the work. You're nourished in body and soul. Now sustain what you've built and keep thriving across all 9 Aisles.</p>
+    </div>
+  </div>
+  
+  <div class="content">
+    <div class="welcome-card">
+      <p class="welcome-text">
+        Congratulations on reaching the Well Nourished tier! This blueprint is designed to help you maintain your health, recognize early warning signs, and stay anchored in the rhythms that got you here.
+      </p>
+      
+      <p class="welcome-text">
+        <strong>To get started:</strong> Enter your 9 Aisles quiz scores below. This creates ownership of your journey and unlocks your personalized maintenance plan, achievement badges, and progress tracking tools.
+      </p>
+      
+      <div class="score-input-section">
+        <div class="input-title">Enter Your 9 Aisles Scores</div>
+        
+        <div class="score-grid" id="scoreInputGrid"></div>
+        
+        <button class="calculate-btn" onclick="calculateResults()">Generate My Blueprint</button>
+      </div>
+    </div>
+    
+    <div class="results-section" id="resultsSection">
+      <div class="achievements-bar">
+        <div class="achievements-title">Your Achievement Badges</div>
+        <div class="badges-grid" id="badgesGrid"></div>
+      </div>
+      
+      <div class="dashboard">
+        <h2 class="section-title">Your 9 Aisles Dashboard</h2>
+        
+        <div id="dashboardContent"></div>
+      </div>
+      
+      <div class="progress-tracker">
+        <h2 class="section-title">Master Progress Tracker</h2>
+        
+        <div class="tracker-tabs">
+          <button class="tracker-tab active" onclick="switchTab('daily')">Daily Rhythms</button>
+          <button class="tracker-tab" onclick="switchTab('weekly')">Weekly Rhythms</button>
+          <button class="tracker-tab" onclick="switchTab('monthly')">Monthly Check-In</button>
+          <button class="tracker-tab" onclick="switchTab('warnings')">Early Warnings</button>
+        </div>
+        
+        <div class="tracker-content active" id="daily-content">
+          <div class="rhythm-grid">
+            <div class="rhythm-card">
+              <div class="rhythm-label">Morning</div>
+              <div id="dailyMorning"></div>
+            </div>
+            <div class="rhythm-card">
+              <div class="rhythm-label">Throughout Day</div>
+              <div id="dailyDay"></div>
+            </div>
+            <div class="rhythm-card">
+              <div class="rhythm-label">Evening</div>
+              <div id="dailyEvening"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tracker-content" id="weekly-content">
+          <div class="rhythm-grid">
+            <div class="rhythm-card">
+              <div class="rhythm-label">This Week</div>
+              <div id="weeklyTasks"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tracker-content" id="monthly-content">
+          <div class="rhythm-grid">
+            <div class="rhythm-card">
+              <div class="rhythm-label">This Month</div>
+              <div id="monthlyTasks"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tracker-content" id="warnings-content">
+          <div class="rhythm-grid">
+            <div class="rhythm-card">
+              <div class="rhythm-label">Self-Assessment</div>
+              <div id="warningChecks"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="cta-section">
+    <div class="cta-grid">
+      <div class="cta-card">
+        <div class="cta-eyebrow">Deepen Your Walk</div>
+        <h3 class="cta-title">The 9 Aisles Prayer Journal</h3>
+        <p class="cta-text">30 days of scripture, reflection, and guided prayer for each category. Spiritual maturity meets nutritional wisdom.</p>
+        <div class="cta-price">$7</div>
+        <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/prayer-journal', '_blank')">Get Prayer Journal</button>
+      </div>
+      
+      <div class="cta-card">
+        <div class="cta-eyebrow">Simplify Planning</div>
+        <h3 class="cta-title">Well Nourished Meal Planner</h3>
+        <p class="cta-text">Interactive weekly meal planning tool. Balance all 9 Aisles, generate grocery lists, stay nourished effortlessly.</p>
+        <div class="cta-price">$7</div>
+        <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/meal-planner', '_blank')">Get Meal Planner</button>
+      </div>
+      
+      <div class="cta-card">
+        <div class="cta-eyebrow">Close Specific Gaps</div>
+        <h3 class="cta-title">The Balance Blueprint</h3>
+        <p class="cta-text">Root cause quizzes and 21-day protocols for any category needing targeted attention. Precision tools for fine-tuning.</p>
+        <div class="cta-price">$5</div>
+        <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/balance-blueprint', '_blank')">Get Balance Blueprint</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <img src="/mnt/user-data/uploads/logo-foodforrx__1_.png" alt="Food for RX" class="footer-logo">
+  </div>
+</div>
+
+<div class="modal" id="maintenanceModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-title" id="modalTitle"></div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const categories = [
+  { id: 'protein', icon: '🥩', name: 'Protein · Love · Cardiovascular' },
+  { id: 'carbs', icon: '🍠', name: 'Carbohydrates · Patience · Muscular' },
+  { id: 'water', icon: '💧', name: 'Water · Peace · Respiratory' },
+  { id: 'salt', icon: '🧂', name: 'Salt · Kindness · Lymphatic' },
+  { id: 'vitamins', icon: '🥬', name: 'Vitamins · Goodness · Skeletal' },
+  { id: 'fats', icon: '🥑', name: 'Healthy Fats · Faithfulness · Endocrine' },
+  { id: 'kitchen', icon: '🍳', name: 'Kitchen · Gentleness · Digestive' },
+  { id: 'seeds', icon: '🌱', name: 'Seeds · Self-Control · Reproductive' },
+  { id: 'freedom', icon: '⚡', name: 'Freedom · Joy · Nervous' }
+];
+
+const weeklyChecklists = {
+  protein: ['Protein at every meal', 'Quality sources 80%+ of time', 'Loving difficult people without depletion'],
+  carbs: ['Complex carbs only', 'Always paired with fat/protein', 'Thanksgiving when plans change'],
+  water: ['Spring water daily', 'Half body weight in oz', 'Casting anxieties on God'],
+  salt: ['Real salt only', 'Zero processed foods', 'Showing costly kindness'],
+  vitamins: ['2 cups greens daily', 'Zero synthetic vitamins', 'Declaring God\'s goodness'],
+  fats: ['Healthy fat every meal', 'Full-fat dairy only', 'Recalling God\'s faithfulness'],
+  kitchen: ['Cooking 10+ meals at home', 'Eating slowly at table', 'Receiving correction gently'],
+  seeds: ['Raw seeds/nuts only', 'No instant gratification', 'Delayed gratification practice'],
+  freedom: ['Zero artificial ingredients', 'Non-toxic cookware only', 'Choosing joy daily']
+};
+
+const dailyRhythms = {
+  morning: ['16oz spring water before coffee', 'Read God\'s Word (10+ min)', 'Protein-rich breakfast'],
+  day: ['Protein at lunch', '30 min movement', 'Cast 3 anxieties on God'],
+  evening: ['Protein at dinner', 'Reflect on the day', 'Gratitude practice']
+};
+
+const weeklyRhythms = ['Meal prep Sunday', 'Sabbath rest', 'Community gathering', 'Review one category'];
+const monthlyRhythms = ['Full 9 Aisles check-in', 'Course corrections', 'Celebrate wins', 'Plan next month'];
+const warningChecks = ['Energy crashes?', 'Digestive issues?', 'Cravings for junk?', 'Impatience?', 'Anxiety creeping?', 'Bitterness?', 'Joy deficit?'];
+
+let userScores = {};
+
+function renderScoreInputs() {
+  const grid = document.getElementById('scoreInputGrid');
+  grid.innerHTML = categories.map(cat => `
+    <div class="score-input-item">
+      <div class="score-icon">${cat.icon}</div>
+      <div class="score-input-details">
+        <div class="score-label">${cat.name.split(' · ')[0]}</div>
+        <input type="number" class="score-input" id="score-${cat.id}" min="0" max="100" placeholder="0-100">
+      </div>
+    </div>
+  `).join('');
+}
+
+function calculateResults() {
+  categories.forEach(cat => {
+    const input = document.getElementById(`score-${cat.id}`);
+    userScores[cat.id] = parseInt(input.value) || 0;
+  });
+  
+  renderBadges();
+  renderDashboard();
+  renderProgressTracker();
+  
+  document.getElementById('resultsSection').classList.add('active');
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderBadges() {
+  const thriving = categories.filter(cat => userScores[cat.id] >= 71).length;
+  const avg = Math.round(categories.reduce((sum, cat) => sum + userScores[cat.id], 0) / 9);
+  
+  const badges = [
+    { icon: '🏆', name: 'Well Nourished', earned: avg >= 71 },
+    { icon: '🌟', name: '7+ Thriving', earned: thriving >= 7 },
+    { icon: '💎', name: 'All 9 Strong', earned: thriving === 9 },
+    { icon: '🔥', name: '90%+ Average', earned: avg >= 90 },
+    { icon: '👑', name: 'Excellence', earned: categories.every(cat => userScores[cat.id] >= 80) }
+  ];
+  
+  const grid = document.getElementById('badgesGrid');
+  grid.innerHTML = badges.map(badge => `
+    <div class="badge ${badge.earned ? 'earned' : 'locked'}">
+      <span class="badge-icon">${badge.icon}</span>
+      <div class="badge-name">${badge.name}</div>
+    </div>
+  `).join('');
+}
+
+function renderDashboard() {
+  const thriving = categories.filter(cat => userScores[cat.id] >= 71);
+  const attention = categories.filter(cat => userScores[cat.id] >= 51 && userScores[cat.id] <= 70);
+  
+  const container = document.getElementById('dashboardContent');
+  
+  let html = '';
+  
+  if (thriving.length > 0) {
+    html += `
+      <div class="zone-section">
+        <div class="zone-header">
+          <span class="zone-icon">✅</span>
+          <span class="zone-title">Thriving</span>
+          <span class="zone-count">${thriving.length} categories</span>
+        </div>
+        ${thriving.map(cat => renderCategoryCard(cat, 'thriving')).join('')}
+      </div>
+    `;
+  }
+  
+  if (attention.length > 0) {
+    html += `
+      <div class="zone-section">
+        <div class="zone-header">
+          <span class="zone-icon">🎯</span>
+          <span class="zone-title">Needs Attention</span>
+          <span class="zone-count">${attention.length} categories</span>
+        </div>
+        ${attention.map(cat => renderCategoryCard(cat, 'needs-attention')).join('')}
+      </div>
+    `;
+  }
+  
+  container.innerHTML = html;
+}
+
+function renderCategoryCard(cat, status) {
+  const score = userScores[cat.id];
+  const checklist = weeklyChecklists[cat.id];
+  
+  return `
+    <div class="category-card ${status}">
+      <div class="category-header">
+        <div class="category-icon">${cat.icon}</div>
+        <div class="category-info">
+          <div class="category-name">${cat.name}</div>
+          <div class="score-display">
+            <div class="score-bar">
+              <div class="score-fill ${status}" style="width: ${score}%"></div>
+            </div>
+            <div class="score-number">${score}%</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="category-actions">
+        ${status === 'thriving' ? 
+          `<button class="action-btn" onclick="toggleChecklist('${cat.id}')">Weekly Checklist</button>` :
+          `<button class="action-btn secondary" onclick="openDeepDive('${cat.id}')">Deep Dive Protocol</button>`
+        }
+      </div>
+      
+      ${status === 'thriving' ? `
+        <div class="weekly-checklist" id="checklist-${cat.id}">
+          <div class="checklist-title">This Week's Maintenance</div>
+          ${checklist.map((item, idx) => `
+            <div class="checkbox-item" onclick="toggleCheck('${cat.id}-${idx}', this)">
+              <div class="custom-checkbox"></div>
+              <div class="checkbox-label">${item}</div>
+            </div>
+          `).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+function toggleChecklist(catId) {
+  const checklist = document.getElementById(`checklist-${catId}`);
+  checklist.classList.toggle('active');
+}
+
+function toggleCheck(id, el) {
+  el.classList.toggle('checked');
+}
+
+function openDeepDive(catId) {
+  const cat = categories.find(c => c.id === catId);
+  document.getElementById('modalTitle').textContent = cat.name;
+  document.getElementById('modalBody').innerHTML = `
+    <p style="font-size: 15px; line-height: 1.7; color: #2d2d2d; margin-bottom: 1.5rem;">
+      This category needs focused attention. Take the Root Cause Quiz to identify whether your gap is physical, spiritual, or both—then get your customized 21-Day Protocol.
+    </p>
+    <p style="font-size: 14px; color: #666; margin-bottom: 1.5rem;">
+      <strong>Note:</strong> The full Balance Blueprint quiz and protocol system will open here. For now, we recommend accessing the complete Balance Blueprint tool ($5) for the full interactive experience.
+    </p>
+    <button class="cta-button" onclick="window.open('https://nickellsblossominggarden.com/balance-blueprint', '_blank')">Access Full Balance Blueprint</button>
+  `;
+  document.getElementById('maintenanceModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('maintenanceModal').classList.remove('active');
+}
+
+function renderProgressTracker() {
+  renderChecklistSection('dailyMorning', dailyRhythms.morning);
+  renderChecklistSection('dailyDay', dailyRhythms.day);
+  renderChecklistSection('dailyEvening', dailyRhythms.evening);
+  renderChecklistSection('weeklyTasks', weeklyRhythms);
+  renderChecklistSection('monthlyTasks', monthlyRhythms);
+  renderChecklistSection('warningChecks', warningChecks);
+}
+
+function renderChecklistSection(id, items) {
+  const container = document.getElementById(id);
+  container.innerHTML = items.map((item, idx) => `
+    <div class="checkbox-item" onclick="toggleCheck('${id}-${idx}', this)">
+      <div class="custom-checkbox"></div>
+      <div class="checkbox-label">${item}</div>
+    </div>
+  `).join('');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tracker-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tracker-content').forEach(c => c.classList.remove('active'));
+  
+  event.target.classList.add('active');
+  document.getElementById(`${tab}-content`).classList.add('active');
+}
+
+renderScoreInputs();
+</script>
+
+</body>
+</html>
