@@ -4,7 +4,2825 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
-<!-- PLACEHOLDER: content too large to inline -->
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Nunito Sans', sans-serif;
+    background: #fefdf0;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fffef5;
+    min-height: 100vh;
+  }
+  
+  .header {
+    background: linear-gradient(135deg, #85ba5b 0%, #6fa84d 100%);
+    padding: 2.5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.05) 19px, rgba(255,255,255,0.05) 20px);
+    pointer-events: none;
+  }
+  
+  .greenery-accent {
+    position: absolute;
+    opacity: 0.15;
+    pointer-events: none;
+    color: #334722;
+  }
+  
+  .greenery-accent.top-left {
+    top: -10px;
+    left: 20px;
+    font-size: 80px;
+  }
+  
+  .greenery-accent.top-right {
+    top: 10px;
+    right: 30px;
+    font-size: 60px;
+  }
+  
+  .greenery-accent.bottom-left {
+    bottom: 20px;
+    left: 40px;
+    font-size: 50px;
+  }
+  
+  .logo-section {
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #334722;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    position: relative;
+    font-weight: 600;
+  }
+  
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .intro-box {
+    background: white;
+    border-left: 4px solid #85ba5b;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    position: relative;
+  }
+  
+  .intro-box::after {
+    content: '🌿';
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 40px;
+    opacity: 0.1;
+  }
+  
+  .intro-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+  }
+  
+  .dashboard {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  
+  .dashboard-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #334722;
+    margin-bottom: 1.5rem;
+  }
+  
+  .category-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  
+  .category-row:hover {
+    background: #fafafa;
+    border-color: #85ba5b;
+  }
+  
+  .category-row.priority {
+    background: #f9fdf5;
+  }
+  
+  .category-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  
+  .category-info {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .category-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+  }
+  
+  .category-score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background: #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .score-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  
+  .score-fill.critical {
+    background: linear-gradient(90deg, #d32f2f 0%, #f44336 100%);
+  }
+  
+  .score-fill.attention {
+    background: linear-gradient(90deg, #f4c430 0%, #f9d53d 100%);
+  }
+  
+  .score-fill.strong {
+    background: linear-gradient(90deg, #85ba5b 0%, #6fa84d 100%);
+  }
+  
+  .score-text {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 45px;
+    text-align: right;
+  }
+  
+  .priority-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .priority-badge.critical {
+    background: #ffebee;
+    color: #d32f2f;
+  }
+  
+  .priority-badge.attention {
+    background: #fffef5;
+    color: #f4c430;
+  }
+  
+  .priority-badge.strong {
+    background: #f5faf0;
+    color: #85ba5b;
+  }
+  
+  .deep-dive-btn {
+    background: #ee3c8a;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .deep-dive-btn:hover {
+    background: #d946a6;
+    transform: translateY(-1px);
+  }
+  
+  .gap-closer-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 2rem 1rem;
+  }
+  
+  .gap-closer-modal.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 16px;
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    background: linear-gradient(135deg, #85ba5b 0%, #6fa84d 100%);
+    padding: 2rem;
+    border-radius: 16px 16px 0 0;
+    position: relative;
+  }
+  
+  .modal-header::after {
+    content: '🌱';
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    font-size: 40px;
+    opacity: 0.2;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  
+  .modal-close:hover {
+    background: rgba(255,255,255,0.3);
+  }
+  
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.5rem;
+  }
+  
+  .modal-subtitle {
+    color: rgba(255,255,255,0.9);
+    font-size: 15px;
+  }
+  
+  .modal-body {
+    padding: 2rem;
+  }
+  
+  .quiz-section {
+    margin-bottom: 2rem;
+  }
+  
+  .quiz-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #334722;
+    margin-bottom: 1.5rem;
+  }
+  
+  .quiz-question {
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .question-text {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+  
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: white;
+    border: 2px solid #e5e5e5;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .quiz-option:hover {
+    border-color: #85ba5b;
+    background: #f9fdf5;
+  }
+  
+  .quiz-option.selected {
+    border-color: #85ba5b;
+    background: #f9fdf5;
+  }
+  
+  .quiz-radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+  }
+  
+  .quiz-option.selected .quiz-radio {
+    border-color: #85ba5b;
+  }
+  
+  .quiz-option.selected .quiz-radio::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: #85ba5b;
+    border-radius: 50%;
+  }
+  
+  .quiz-option-text {
+    font-size: 14px;
+    color: #2d2d2d;
+    line-height: 1.5;
+  }
+  
+  .submit-quiz-btn {
+    background: #ee3c8a;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+  }
+  
+  .submit-quiz-btn:hover:not(:disabled) {
+    background: #d946a6;
+    transform: translateY(-2px);
+  }
+  
+  .submit-quiz-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .results-section {
+    display: none;
+  }
+  
+  .results-section.active {
+    display: block;
+  }
+  
+  .results-header {
+    background: #f9fdf5;
+    border-left: 4px solid #85ba5b;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .results-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #334722;
+    margin-bottom: 0.5rem;
+  }
+  
+  .results-cause {
+    font-size: 16px;
+    font-weight: 600;
+    color: #85ba5b;
+    margin-bottom: 1rem;
+  }
+  
+  .results-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+  }
+  
+  .results-scripture {
+    background: #fef5f9;
+    border-left: 3px solid #ee3c8a;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+  }
+  
+  .scripture-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: #c7156b;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  
+  .scripture-ref {
+    font-size: 11px;
+    color: #999;
+    font-style: normal;
+  }
+  
+  .protocol-section {
+    margin-top: 2rem;
+  }
+  
+  .protocol-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #334722;
+    margin-bottom: 1.5rem;
+  }
+  
+  .week-group {
+    margin-bottom: 2rem;
+  }
+  
+  .week-header {
+    font-weight: 600;
+    font-size: 16px;
+    color: #334722;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #85ba5b;
+  }
+  
+  .day-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: #fafafa;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .day-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #85ba5b;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, #85ba5b 0%, #6fa84d 100%);
+    padding: 2.5rem 1.5rem;
+    border-radius: 12px;
+    margin-top: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.03) 19px, rgba(255,255,255,0.03) 20px);
+    pointer-events: none;
+  }
+  
+  .cta-section::after {
+    content: '🌿';
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 80px;
+    opacity: 0.1;
+  }
+  
+  .cta-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #334722;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .cta-text {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .cta-button {
+    background: #ee3c8a;
+    color: white;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+    position: relative;
+    font-family: 'Nunito Sans', sans-serif;
+  }
+  
+  .cta-button:hover {
+    background: #d946a6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(238, 60, 138, 0.4);
+  }
+  
+  @media (max-width: 640px) {
+    h1 {
+      font-size: 32px;
+    }
+    
+    .category-row {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .deep-dive-btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+    
+    .modal-content {
+      margin: 1rem;
+    }
+  }
+
+  /* ── Access-code modal ── */
+  #access-modal {
+    position: fixed;
+    inset: 0;
+    background: #334722;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem;
+  }
+  #access-modal.hidden { display: none; }
+  .modal-inner {
+    text-align: center;
+    max-width: 360px;
+    width: 100%;
+  }
+  .modal-inner h2 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .modal-inner p {
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+  #access-input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: white;
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    text-align: center;
+    letter-spacing: 0.2em;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  #access-input::placeholder { color: rgba(0,0,0,0.35); }
+  #access-input:focus { border-color: #f9d53d; }
+  #access-btn {
+    width: 100%;
+    padding: 0.85rem;
+    border-radius: 10px;
+    border: none;
+    background: #ee3c8a;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    font-family: 'Nunito Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  #access-btn:hover { background: #d946a6; }
+  #access-error {
+    color: #f9d53d;
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-10px); }
+    40%       { transform: translateX(10px); }
+    60%       { transform: translateX(-8px); }
+    80%       { transform: translateX(8px); }
+  }
+  .shake { animation: shake 0.4s ease; }
+
+  /* ── Footer badge ── */
+  #footer-badge {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 90px;
+    height: 90px;
+    z-index: 100;
+    opacity: 0.95;
+    transition: opacity 0.2s;
+  }
+  #footer-badge:hover { opacity: 1; }
+</style>
 </head>
-<body></body>
+<body>
+
+<!-- Access Code Modal -->
+<div id="access-modal">
+  <div class="modal-inner">
+    <h2>Access Required</h2>
+    <p>Enter your access code to unlock your Balance Blueprint.</p>
+    <input id="access-input" type="password" placeholder="Access code" maxlength="20" autocomplete="off" />
+    <button id="access-btn" onclick="checkAccessCode()">Unlock</button>
+    <div id="access-error"></div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="header">
+    <div class="greenery-accent top-left">🌿</div>
+    <div class="greenery-accent top-right">🍃</div>
+    <div class="greenery-accent bottom-left">🌱</div>
+    
+    <div class="eyebrow">Needs Balance Tier · Personalized Blueprint</div>
+    
+    <div class="logo-section">
+      <img src="2.png" alt="Logo" style="width:160px;filter:brightness(0) invert(1);">
+    </div>
+    
+    <h1>Your Nourishment Balance Blueprint</h1>
+    
+    <p class="subtitle">You're doing well—better than most. But there are specific gaps keeping you from optimal nourishment in body and soul. This blueprint shows exactly where you stand and what to focus on to achieve complete balance.</p>
+  </div>
+  
+  <div class="content">
+    <div class="intro-box">
+      <p class="intro-text">Below are your scores across all 9 Aisles. Your strongest areas are already working for you—keep them going. Your priority zones need focused attention. Click "Deep Dive" on any priority category to identify your root cause and get a customized 21-day protocol.</p>
+    </div>
+    
+    <div class="dashboard">
+      <h2 class="dashboard-title">Your Scores Across 9 Categories</h2>
+      
+      <div id="categoryList"></div>
+    </div>
+    
+    <div class="cta-section">
+      <div class="cta-eyebrow">Go Deeper</div>
+      <h2 class="cta-title">The 9 Aisles Prayer Journal</h2>
+      <p class="cta-text">You've identified your gaps. You have your roadmap. Now go deeper with the 9 Aisles Prayer Journal—a 30-day interactive journey through each category with daily scripture, prompts, and space to process what God is teaching you about nourishment in body and soul.</p>
+      <p class="cta-text">This isn't just a nutrition plan. It's a discipleship tool that transforms how you eat, how you think, and how you live.</p>
+      <button class="cta-button" onclick="window.open('https://buy.stripe.com/5kQbITeKA4FF1MzdpY2ZO06', '_blank')">Get the 9 Aisles Prayer Journal ($17)</button>
+    </div>
+  </div>
+</div>
+
+<div class="gap-closer-modal" id="gapCloserModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-title" id="modalTitle">Category Name</div>
+      <div class="modal-subtitle" id="modalSubtitle">Root Cause Assessment</div>
+    </div>
+    <div class="modal-body">
+      <div class="quiz-section" id="quizSection">
+        <h3 class="quiz-title">Why is your score low? Let's find out.</h3>
+        <div id="quizQuestions"></div>
+        <button class="submit-quiz-btn" id="submitQuizBtn" onclick="submitQuiz()" disabled>Complete Assessment</button>
+      </div>
+      
+      <div class="results-section" id="resultsSection">
+        <div class="results-header">
+          <div class="results-title">Your Root Cause:</div>
+          <div class="results-cause" id="rootCause"></div>
+          <div class="results-text" id="protocolText"></div>
+          <div class="results-scripture" id="scriptureBox" style="display:none;">
+            <div class="scripture-text" id="scriptureText"></div>
+            <div class="scripture-ref" id="scriptureRef"></div>
+          </div>
+        </div>
+        
+        <div class="protocol-section">
+          <h3 class="protocol-title">Your 21-Day Habit Tracker</h3>
+          <div id="protocolDetails"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+// Sample user data (would come from quiz results)
+const userData = {
+  scores: {
+    protein: 85,
+    carbs: 72,
+    water: 45,
+    salt: 88,
+    vitamins: 50,
+    fats: 78,
+    kitchen: 92,
+    seeds: 40,
+    freedom: 81
+  }
+};
+
+const categories = [
+  { 
+    id: 'protein', 
+    icon: '🥩', 
+    name: 'Protein · Love · Cardiovascular',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'When do you typically eat protein?',
+        type: 'physical',
+        options: [
+          'Only at dinner',
+          'Lunch and dinner, but rarely breakfast',
+          'Inconsistently—sometimes I skip it entirely',
+          'I eat protein at all meals'
+        ]
+      },
+      {
+        q: 'What\'s your biggest barrier to eating more protein?',
+        type: 'physical',
+        options: [
+          'Cost (quality protein is expensive)',
+          'Convenience (too time-consuming to prepare)',
+          'Taste (I don\'t like most protein sources)',
+          'Knowledge (I don\'t know what counts as good protein)'
+        ]
+      },
+      {
+        q: 'When someone drains you emotionally, what happens?',
+        type: 'spiritual',
+        options: [
+          'I withdraw completely and avoid them',
+          'I engage but feel resentful and exhausted after',
+          'I try to love them but run out of capacity quickly',
+          'I can love them consistently without depletion'
+        ]
+      },
+      {
+        q: 'How do you feel 2-3 hours after breakfast?',
+        type: 'physical',
+        options: [
+          'Shaky, irritable, or craving sugar (blood sugar crash)',
+          'Hungry again, low energy',
+          'Stable and energized',
+          'I don\'t eat breakfast'
+        ]
+      },
+      {
+        q: 'When you think about loving difficult people, what do you feel?',
+        type: 'spiritual',
+        options: [
+          'Anger or bitterness—I don\'t want to',
+          'Obligation—I should, but it\'s draining',
+          'Willingness, but I lack the strength to sustain it',
+          'Joy—I\'m empowered by God\'s love through me'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Practical Barriers',
+        text: 'Focus on simple, affordable protein sources and meal prep strategies.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Breakfast Protein',
+            days: [
+              'Eat 3 whole eggs scrambled in butter within 1 hour of waking',
+              'Try a new protein breakfast: 4oz wild salmon with avocado',
+              'Full-fat Greek yogurt (1 cup) with 1/4 cup raw almonds',
+              'Track your energy 2 hours after protein breakfast vs old breakfast',
+              'Prep 6 hard-boiled eggs for the week (protein on-the-go)',
+              'Eat protein within 1 hour of waking (your choice from this week)',
+              'Reflect: How has morning protein changed your energy/mood?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: All-Meal Protein',
+            days: [
+              'Add protein to lunch (palm-sized portion: chicken, fish, beef, or legumes)',
+              'Add protein to dinner (don\'t skip it)',
+              'No meal without protein today (breakfast, lunch, dinner)',
+              'Try canned sardines or mackerel (affordable, nutrient-dense)',
+              'Cook a whole chicken on Sunday—use it all week',
+              'Track total protein: aim for 0.8g per pound of body weight',
+              'Reflect: Do you feel more stable eating protein at every meal?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Quality & Love Connection',
+            days: [
+              'Upgrade one protein source to grass-fed/wild-caught/pasture-raised',
+              'Before emotionally draining interaction, eat protein first',
+              'Pray before protein meal: "Build my capacity to love like You love"',
+              'Notice: Does nourishment affect your patience with difficult people?',
+              'Swap protein bars/shakes for real food (eggs, meat, fish)',
+              'Love someone sacrificially while staying physically nourished',
+              'Reflect: How has protein intake changed your capacity to love?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Relational Wounds',
+        text: 'Focus on healing heart wounds while nourishing body to create capacity for love.',
+        scripture: {
+          text: 'And above all things have fervent love for one another, for love will cover a multitude of sins.',
+          ref: '1 Peter 4:8 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Nourish the Body',
+            days: [
+              'Identify one person who drains you emotionally (write their name)',
+              'Eat 25-30g protein before any interaction with them',
+              'Pray: "Let me love [name] with Your love, not mine"',
+              'Notice the difference when you\'re nourished vs depleted',
+              'Add protein to breakfast (you can\'t pour from empty)',
+              'Journal: What wounds make it hard to love this person?',
+              'Reflect: Is the issue your lack of protein or unforgiveness?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Heal the Heart',
+            days: [
+              'Confess any bitterness toward this person to God',
+              'Eat protein, then write one thing you appreciate about them',
+              'Forgive them out loud (even if they don\'t deserve it)',
+              'Pray for their good before your next interaction',
+              'Nourish yourself, then engage with love (not resentment)',
+              'Notice: Does forgiveness increase your capacity to love?',
+              'Reflect: How has healing heart wounds changed interactions?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Love from Overflow',
+            days: [
+              'Protein at every meal—create overflow to pour out from',
+              'Love this person sacrificially (do something costly)',
+              'Don\'t withdraw when drained—nourish and re-engage',
+              'Pray before meals: "Build my foundation to love well"',
+              'Identify another difficult person—repeat the process',
+              'Track: Protein intake vs ability to love without resentment',
+              'Reflect: How has nourishment + healing changed your love?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Fix protein intake while addressing heart wounds through prayer and forgiveness.',
+        scripture: {
+          text: 'A new commandment I give to you, that you love one another; as I have loved you, that you also love one another.',
+          ref: 'John 13:34-35 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Foundation',
+            days: [
+              'Protein at breakfast (25-30g) + pray for difficult person',
+              'Protein at lunch + write one wound you\'re carrying',
+              'Protein at dinner + confess bitterness to God',
+              'All meals have protein + forgive one person out loud',
+              'Track protein grams today (aim for 0.8g per lb body weight)',
+              'Before draining interaction: eat protein + pray for them',
+              'Reflect: Is body nourished? Is heart softening?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Upgrade Quality + Deepen Love',
+            days: [
+              'Swap one protein for higher quality (grass-fed, wild-caught)',
+              'Love someone who hurt you while physically nourished',
+              'Prep protein for week (cook chicken, boil eggs, portion fish)',
+              'Pray before protein: "Let Your love flow through me"',
+              'Notice correlation: nourishment + heart healing = love capacity',
+              'Do costly act of love for difficult person',
+              'Reflect: How has integrated healing transformed relationships?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Sustain & Multiply',
+            days: [
+              'Protein at every meal (non-negotiable now)',
+              'Love multiple difficult people from overflow',
+              'Track energy + emotional capacity when nourished',
+              'Fast from one relationship complaint—replace with prayer',
+              'Share your protein + love transformation with someone',
+              'Continue forgiveness work—keep heart soft',
+              'Reflect: How has body + soul nourishment changed you?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'carbs', 
+    icon: '🍠', 
+    name: 'Carbohydrates · Patience · Muscular',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'What do you eat most often for carbs?',
+        type: 'physical',
+        options: [
+          'White bread, pasta, rice (refined grains)',
+          'Mix of white and whole grains',
+          'Mostly whole grains and starchy vegetables',
+          'I avoid carbs because I think they\'re bad'
+        ]
+      },
+      {
+        q: 'How does your energy feel throughout the day?',
+        type: 'physical',
+        options: [
+          'Spike and crash repeatedly (rollercoaster)',
+          'Low and sluggish most of the day',
+          'Steady until late afternoon, then crash',
+          'Consistent and stable all day'
+        ]
+      },
+      {
+        q: 'When plans change or things don\'t go your way, how do you respond?',
+        type: 'spiritual',
+        options: [
+          'Immediate frustration or anger',
+          'Annoyance, but I try to hide it',
+          'Disappointment, but I can adapt',
+          'Acceptance and flexibility'
+        ]
+      },
+      {
+        q: 'Do you eat carbs with fat or protein, or alone?',
+        type: 'physical',
+        options: [
+          'Always alone (bread by itself, pasta with just sauce)',
+          'Sometimes paired, sometimes alone',
+          'Usually paired with protein or fat',
+          'I don\'t pay attention to pairing'
+        ]
+      },
+      {
+        q: 'How do you handle waiting (traffic, long lines, delays)?',
+        type: 'spiritual',
+        options: [
+          'Inner rage, impatience, complaining',
+          'Frustration but I try to stay calm',
+          'I can wait, but it\'s uncomfortable',
+          'I use waiting as time to pray or think'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Blood Sugar Instability',
+        text: 'Focus on complex carbs, proper pairing, and steady fuel.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Replace Refined Carbs',
+            days: [
+              'Identify all white carbs in your kitchen (bread, rice, pasta, crackers)',
+              'Swap ONE white carb today for sweet potato, quinoa, or spaghetti squash',
+              'Never eat carbs alone—pair with fat or protein to stabilize blood sugar',
+              'Track energy levels 2 hours after refined carbs vs whole food carbs',
+              'Replace white rice with cauliflower rice or quinoa',
+              'Notice mood swings—do they correlate with carb crashes?',
+              'Reflect: How does steady fuel affect your energy throughout the day?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Build Steady Fuel Habits',
+            days: [
+              'Eliminate all white bread for 7 days—use lettuce wraps or sweet potato',
+              'Replace pasta with zucchini noodles or spaghetti squash',
+              'Pair every carb with butter, olive oil, avocado, or nuts',
+              'Track blood sugar stability: crashes vs steady energy',
+              'Prep colorful carbs for the week (roast sweet potatoes, cook quinoa)',
+              'Notice patience levels when energy is stable vs crashing',
+              'Reflect: Does stable blood sugar reduce irritability?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery & Endurance',
+            days: [
+              'Go 7 days with zero refined carbs (only whole food sources)',
+              'Notice physical endurance improvements from steady fuel',
+              'Track correlation: complex carbs vs patience in frustrating moments',
+              'Share carb-swapping strategy with someone who crashes daily',
+              'Maintain only whole food carbs—make it your new normal',
+              'Journal: How has steady fuel built physical endurance?',
+              'Reflect: How has stable energy changed your daily experience?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Impatience Patterns',
+        text: 'Focus on endurance and thanksgiving practice while stabilizing blood sugar.',
+        scripture: {
+          text: 'My brethren, count it all joy when you fall into various trials, knowing that the testing of your faith produces patience. But let patience have its perfect work, that you may be perfect and complete, lacking nothing.',
+          ref: 'James 1:2-4 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Notice Triggers',
+            days: [
+              'Identify 3 situations that trigger impatience (traffic, delays, interruptions)',
+              'When frustrated, pause and take 3 deep breaths before reacting',
+              'Thank God for one thing in the frustrating moment (out loud if possible)',
+              'Notice body sensations when impatient (tension, rapid heartbeat)',
+              'Eat complex carbs at breakfast—does it help patience later?',
+              'Practice thanksgiving during one delay today',
+              'Reflect: Did pausing + gratitude reduce reactive impatience?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Endurance Practice',
+            days: [
+              'When plans change, say "Thank You, Lord" before complaining',
+              'Pair steady fuel (complex carbs) with thanksgiving practice',
+              'Wait patiently in one situation that normally triggers frustration',
+              'Pray: "Help me give thanks in ALL things, not just easy things"',
+              'Track: impatient reactions vs grateful responses this week',
+              'Let patience have its perfect work—don\'t rush the process',
+              'Reflect: Is thanksgiving rewiring your impatience patterns?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Integration',
+            days: [
+              'Stable carbs + thanksgiving = endurance (practice both daily)',
+              'When waiting, use time to pray instead of complain',
+              'Notice: Does fueling body + soul increase patience capacity?',
+              'Give thanks in trial—even when it\'s hard',
+              'Share patience + thanksgiving practice with someone reactive',
+              'Journal: How has endurance grown over 20 days?',
+              'Reflect: How has patience transformed your responses?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Fix carb quality AND patience habits together.',
+        scripture: {
+          text: 'Rest in the Lord, and wait patiently for Him.',
+          ref: 'Psalm 37:7 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Foundation',
+            days: [
+              'Replace white carb with sweet potato + thank God before meal',
+              'Pair carbs with fat/protein + practice gratitude in delay',
+              'Swap pasta for squash + pause before reacting to frustration',
+              'Notice energy + patience correlation throughout day',
+              'Complex carbs all day + thanksgiving in 3 frustrating moments',
+              'Prep colorful carbs for week + pray for patience',
+              'Reflect: Is steady fuel + gratitude building endurance?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Both',
+            days: [
+              'Zero refined carbs today + thank God in every interruption',
+              'Track blood sugar stability + impatience triggers',
+              'Quinoa/sweet potato at every meal + grateful waiting practice',
+              'Notice: stable energy = more capacity for patience?',
+              'Pair carbs properly + give thanks when plans change',
+              'Share integrated approach with someone struggling',
+              'Reflect: How has body + soul nourishment increased endurance?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery',
+            days: [
+              'Only whole food carbs (21 days total) + thanksgiving always',
+              'Track sustained energy + patient responses all week',
+              'Model patience for others—let them see the fruit',
+              'Notice transformation: reactive → enduring with thanksgiving',
+              'Continue both habits—they work together',
+              'Journal: How has integrated nourishment changed you?',
+              'Reflect: How do steady fuel + gratitude create patience?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'water', 
+    icon: '💧', 
+    name: 'Water · Peace · Respiratory',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'What do you drink first thing in the morning?',
+        type: 'physical',
+        options: [
+          'Coffee or caffeinated beverage',
+          'Nothing—I don\'t drink until later',
+          'Juice or sugary drink',
+          'Water'
+        ]
+      },
+      {
+        q: 'What type of water do you drink most often?',
+        type: 'physical',
+        options: [
+          'Tap water or whatever\'s available',
+          'Bottled purified/filtered water',
+          'Spring water with minerals',
+          'I mostly drink other beverages, not water'
+        ]
+      },
+      {
+        q: 'How often does anxiety or worry interrupt your day?',
+        type: 'spiritual',
+        options: [
+          'Constantly—I\'m always anxious about something',
+          'Daily—several times per day',
+          'Weekly—a few times per week',
+          'Rarely—I feel generally peaceful'
+        ]
+      },
+      {
+        q: 'When you\'re stressed, what physical symptoms do you notice?',
+        type: 'physical',
+        options: [
+          'Rapid heartbeat, shallow breathing, tight chest',
+          'Headaches, dry mouth, fatigue',
+          'Digestive issues, tension',
+          'I don\'t notice physical symptoms'
+        ]
+      },
+      {
+        q: 'What do you do with worries and fears?',
+        type: 'spiritual',
+        options: [
+          'Ruminate on them constantly',
+          'Try to solve everything myself',
+          'Distract myself to avoid them',
+          'Pray and cast them on God'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Dehydration Habits',
+        text: 'Focus on water quality, quantity, and timing.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Quality & Timing',
+            days: [
+              'Buy spring water (not tap, not purified—spring with minerals)',
+              '16oz spring water with pinch Celtic salt BEFORE coffee',
+              'Drink 64oz total today (track every ounce)',
+              'Water first thing in morning (before phone, before anything)',
+              'Replace one caffeinated drink with herbal tea or plain water',
+              'Notice breathing—is it easier when hydrated?',
+              'Reflect: How does body feel starting day with water?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Quantity & Consistency',
+            days: [
+              'Drink half your body weight in ounces today',
+              'Set phone timer—drink 8oz every 2 hours',
+              'Only spring water today (no soda, juice, or other drinks)',
+              'Add minerals to morning water (Celtic or Redmond\'s salt)',
+              'Track urine color (pale yellow = properly hydrated)',
+              'Infuse water with cucumber overnight (no artificial flavoring)',
+              'Reflect: Is anxiety lower when properly hydrated?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery & Peace Integration',
+            days: [
+              'Upgrade all water to spring water (throw out tap/purified)',
+              'Hydrate before every meal (8oz minimum)',
+              'Notice energy, skin, breathing improvements from hydration',
+              'Track days: water intake vs anxiety levels',
+              'Drink only water and herbal tea for 3 days straight',
+              'Share hydration strategy with someone dehydrated',
+              'Reflect: How has proper hydration changed your body?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Uncast Anxiety',
+        text: 'Focus on casting cares on God with every glass.',
+        scripture: {
+          text: 'Casting all your care upon Him, for He cares for you.',
+          ref: '1 Peter 5:7 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Write & Cast',
+            days: [
+              'Before first water, write 3 anxieties causing you stress',
+              'Pray each anxiety out loud: "I cast this on You, Father"',
+              'Drink water slowly after casting—receive His peace',
+              'Notice physical release when you cast cares (breathing, tension)',
+              'Morning routine: write anxieties, pray, cast, hydrate',
+              'When new anxiety arises, stop and cast it immediately',
+              'Reflect: Does casting anxiety create space for peace?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Peace Practice',
+            days: [
+              'With every glass of water, pray: "Your peace guards my heart"',
+              'Write biggest fear—cast it on God—drink as act of trust',
+              'When anxious, hydrate before reacting (calm nervous system)',
+              'Cast 5 anxieties today (write, pray, release, hydrate)',
+              'Notice shallow breathing when anxious—hydrate deeply',
+              'Declare Philippians 4:6-7 before drinking water',
+              'Reflect: Is peace increasing as you practice casting?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Integration & Abundance',
+            days: [
+              'Drink spring water only + cast every worry that arises',
+              'Track anxiety moments vs times you cast cares on God',
+              'Hydrate before stressful situations (calm body + soul)',
+              'Notice: Does hydration + casting reduce fight-or-flight?',
+              'Teach someone the water + peace connection',
+              'Journal: How has casting anxiety transformed your soul?',
+              'Reflect: How has hydration + peace practice changed you?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Upgrade water quality while practicing daily anxiety-casting.',
+        scripture: {
+          text: 'Be anxious for nothing, but in everything by prayer and supplication, with thanksgiving, let your requests be made known to God; and the peace of God, which surpasses all understanding, will guard your hearts and minds through Christ Jesus.',
+          ref: 'Philippians 4:6-7 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Upgrade Both',
+            days: [
+              'Buy spring water + write 3 anxieties',
+              '16oz spring water before coffee + cast anxieties on God',
+              'Add Celtic salt to morning water + pray peace prayer',
+              'Drink 64oz today + cast every worry that arises',
+              'Notice breathing when hydrated vs dehydrated',
+              'Water first, anxiety-casting second, then start day',
+              'Reflect: Does body + soul nourishment create peace?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Practice',
+            days: [
+              'Drink half body weight in oz + cast 5 anxieties',
+              'Only spring water today + declare peace scripture',
+              'Hydrate every 2 hours + check in: what needs casting?',
+              'Before stressful moment: drink water + cast fear on God',
+              'Track correlation: hydration + casting = peace levels',
+              'Infuse water with cucumber + journal anxieties released',
+              'Reflect: How has integrated approach transformed anxiety?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery',
+            days: [
+              'Spring water only (all day) + cast every worry',
+              'Notice calm nervous system when hydrated + casting',
+              'Hydrate before reacting to stress (body + soul calm)',
+              'Share this practice with someone anxious',
+              'Track: days with water + casting vs days without',
+              'Journal: How has peace replaced anxiety?',
+              'Reflect: How has body + soul hydration changed you?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'salt', 
+    icon: '🧂', 
+    name: 'Salt · Kindness · Lymphatic',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'What kind of salt do you use at home?',
+        type: 'physical',
+        options: [
+          'Table salt or iodized salt',
+          'Sea salt (refined)',
+          'Himalayan pink salt or Redmond\'s Real Salt',
+          'I don\'t use salt—I think it\'s bad for me'
+        ]
+      },
+      {
+        q: 'How often do you eat packaged/processed foods?',
+        type: 'physical',
+        options: [
+          'Daily—most of my food comes from packages',
+          'Several times per week',
+          'Occasionally—mostly whole foods',
+          'Rarely—I cook almost everything from scratch'
+        ]
+      },
+      {
+        q: 'When someone wrongs you, what\'s your first response?',
+        type: 'spiritual',
+        options: [
+          'Withhold kindness—they don\'t deserve it',
+          'Be kind outwardly but resentful inwardly',
+          'Struggle to show kindness but try',
+          'Extend kindness regardless of how I feel'
+        ]
+      },
+      {
+        q: 'Do you experience any of these: brain fog, fatigue, muscle cramps, low energy?',
+        type: 'physical',
+        options: [
+          'Yes, multiple of these regularly',
+          'Yes, one or two occasionally',
+          'Rarely',
+          'No, I feel energized and clear'
+        ]
+      },
+      {
+        q: 'How do you feel about showing costly kindness (time, money, inconvenience)?',
+        type: 'spiritual',
+        options: [
+          'Resistant—I protect my resources',
+          'Guilty when I don\'t, but rarely do it',
+          'Willing, but it drains me',
+          'Joyful—I see it as Kingdom investment'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Mineral Deficiency',
+        text: 'Focus on real salt, eliminating processed foods, and lymph drainage.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Replace Fake Salt',
+            days: [
+              'Throw out ALL table salt and iodized salt from your home',
+              'Buy Redmond\'s Real Salt or pink Himalayan salt',
+              'Use real salt on every meal today (breakfast, lunch, dinner)',
+              'Notice taste difference—real salt enhances, fake salt just tastes "salty"',
+              'Add pinch of real salt to morning water (minerals for lymph drainage)',
+              'Stop buying foods with "salt" in ingredients (it\'s fake)',
+              'Reflect: Do you feel more energized with real minerals?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Eliminate Processed + Boost Minerals',
+            days: [
+              'Cook all meals at home—salt them yourself with real salt',
+              'Avoid restaurant food (you don\'t know what salt they use)',
+              'Season generously with real salt (your body needs minerals)',
+              'Notice detox symptoms: headaches, fatigue (toxins draining from lymph)',
+              'Hydrate extra when detoxing (water + real salt helps drainage)',
+              'Track energy levels as lymph system clears toxins',
+              'Reflect: How has real salt changed how you feel?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery & Drainage',
+            days: [
+              'Only eat food you salted yourself (avoid all processed salt)',
+              'Notice brain fog clearing as minerals replenish',
+              'Season vegetables, meat, eggs generously with real salt',
+              'Track: muscle cramps, fatigue, brain fog improvements',
+              'Share real salt vs fake salt info with someone',
+              'Journal: How has mineral restoration changed your body?',
+              'Reflect: How does clean lymph system feel?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Hardened Heart',
+        text: 'Focus on costly kindness practice and forgiveness work.',
+        scripture: {
+          text: 'And be kind to one another, tenderhearted, forgiving one another, even as God in Christ forgave you.',
+          ref: 'Ephesians 4:32 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Inconvenient Love',
+            days: [
+              'Do one act of kindness that costs you time',
+              'Do one act of kindness that costs you money',
+              'Be kind to someone who has been unkind to you',
+              'Pray for someone you\'re tempted to withhold kindness from',
+              'Notice: How does kindness change your own emotional state?',
+              'Write down one person you\'ve withheld kindness from and why',
+              'Reflect: What would change if you showed kindness first?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Tenderheartedness',
+            days: [
+              'Ask God to soften one area where your heart has grown hard',
+              'Show kindness to someone who doesn\'t deserve it (by human standards)',
+              'Forgive someone today—fully, out loud, to God',
+              'Notice physical sensation when you extend kindness vs withhold it',
+              'Real salt + real kindness: upgrade both today',
+              'Write what it would feel like to live with a tender heart',
+              'Reflect: How is tenderheartedness different from weakness?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Overflow',
+            days: [
+              'Extend kindness even when you\'re depleted (body + soul)',
+              'Show costly kindness three times today',
+              'Pray: "Let me be kind as You are kind, forgiving as You forgave"',
+              'Notice lymph energy when minerals + kindness flow freely',
+              'Model tenderheartedness for someone who is hardened',
+              'Journal: How has practicing kindness transformed you?',
+              'Reflect: How has real salt + kindness changed your nourishment?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Upgrade to real salt while practicing daily costly kindness.',
+        scripture: {
+          text: 'You are the salt of the earth.',
+          ref: 'Matthew 5:13 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Upgrade Both',
+            days: [
+              'Replace table salt with Redmond\'s + do one kind act',
+              'Real salt on every meal + pray for someone you\'re avoiding',
+              'Cook from scratch with real salt + be kind to unkind person',
+              'Add real salt to morning water + forgive one person out loud',
+              'No processed food today + show costly kindness (time/money)',
+              'Season meals with real salt + write who needs your kindness',
+              'Reflect: Are real minerals + real kindness renewing you?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Both',
+            days: [
+              'Track brain fog clearing + track kindness acts this week',
+              'Real salt only + tenderheartedness prayer each morning',
+              'Notice lymph drainage improvement + soften toward one person',
+              'Cook all meals with real salt + extend kindness when depleted',
+              'Track mineral improvements + kindness ripple effects',
+              'Real salt + costly act of love = salt of the earth living',
+              'Reflect: How does upgrading minerals + kindness feel?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery',
+            days: [
+              'Real salt always (never fake) + kindness always (never withheld)',
+              'Track energy, brain clarity, and lymph health improvements',
+              'Model real salt living for someone still using table salt',
+              'Extend kindness three times before noon',
+              'Notice: Real minerals + real kindness = salt of the earth',
+              'Journal: How has mineral + character upgrade changed you?',
+              'Reflect: How has being salt of the earth transformed your life?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'vitamins', 
+    icon: '🌈', 
+    name: 'Vitamins · Joy · Immune',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'How many colors of vegetables/fruits do you eat daily?',
+        type: 'physical',
+        options: [
+          '0-1 colors (mostly brown/white foods)',
+          '2-3 colors',
+          '4-5 colors',
+          '6+ colors every day'
+        ]
+      },
+      {
+        q: 'How often do you get sick (cold, flu, infections)?',
+        type: 'physical',
+        options: [
+          '4+ times per year',
+          '2-3 times per year',
+          'Once per year',
+          'Rarely—my immune system is strong'
+        ]
+      },
+      {
+        q: 'How would you describe your baseline emotional state?',
+        type: 'spiritual',
+        options: [
+          'Sad, hopeless, or chronically low',
+          'Flat—not sad but not joyful',
+          'Generally okay with occasional joy',
+          'Deep, consistent joy regardless of circumstances'
+        ]
+      },
+      {
+        q: 'Do you take any supplements (vitamin D, C, zinc, etc.)?',
+        type: 'physical',
+        options: [
+          'No supplements at all',
+          'Occasional/inconsistent',
+          'Some key ones consistently',
+          'Comprehensive protocol'
+        ]
+      },
+      {
+        q: 'What is the source of your joy?',
+        type: 'spiritual',
+        options: [
+          'Circumstances (only happy when things go well)',
+          'Other people (depends on relationships)',
+          'Accomplishments (only when achieving)',
+          'God alone (independent of circumstances)'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Micronutrient Gaps',
+        text: 'Focus on colorful eating and targeted supplementation.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Eat the Rainbow',
+            days: [
+              'Count colors at every meal—aim for 3+ per meal',
+              'Add one new color today: red (tomatoes, peppers, strawberries)',
+              'Add orange: sweet potato, carrots, butternut squash',
+              'Add dark green: spinach, kale, broccoli, asparagus',
+              'Add purple: blueberries, purple cabbage, eggplant',
+              'Add yellow: yellow pepper, mango, corn, yellow squash',
+              'Reflect: How many colors did you eat this week?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Targeted Supplements',
+            days: [
+              'Start Vitamin D3 (5000 IU with K2)—test level if possible',
+              'Add Vitamin C (1000mg) with breakfast—immune foundation',
+              'Add zinc (25mg) at dinner—immune and healing',
+              'Eat one Brazil nut daily (selenium for thyroid)',
+              'Add magnesium glycinate (300mg) before bed',
+              'Notice energy improvements as deficiencies fill',
+              'Reflect: How does supplementation affect energy and mood?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Immune Fortress',
+            days: [
+              'Colorful food at every meal (non-negotiable)',
+              'All supplements daily (D3, C, zinc, magnesium)',
+              'Add elderberry or astragalus for immune defense',
+              'Eliminate nutrient-blocking foods (sugar, seed oils)',
+              'Notice immune strength improvements',
+              'Share colorful eating strategy with someone sick often',
+              'Reflect: How has colorful nourishment changed your immunity?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Joy Theft',
+        text: 'Focus on cultivating God-sourced joy through gratitude and scripture.',
+        scripture: {
+          text: 'The joy of the Lord is your strength.',
+          ref: 'Nehemiah 8:10 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Find Stolen Joy',
+            days: [
+              'Write 3 things stealing your joy (circumstances, people, fears)',
+              'Choose joy by thanking God for one thing in each area',
+              'Declare: "The joy of the Lord is my strength" every morning',
+              'Notice: When does joy disappear? What triggers loss?',
+              'Eat something colorful + thank God for beauty in creation',
+              'Worship—even if you don\'t feel like it (joy follows choice)',
+              'Reflect: Is your joy based on God or on circumstances?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Build Joy Muscles',
+            days: [
+              'Count 10 specific gifts from God before getting out of bed',
+              'Choose joy in one situation that normally steals it',
+              'Declare scripture of joy out loud: Nehemiah 8:10, Psalm 16:11',
+              'Eat colorful food + worship for 5 minutes before eating',
+              'Write about a time God gave joy in a hard season',
+              'Give joy away—encourage someone else specifically',
+              'Reflect: How is choosing joy strengthening you?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Joy as Strength',
+            days: [
+              'Hard day? Choose joy first, then handle the problem',
+              'Morning: 10 gratitudes + scripture declaration + worship',
+              'Notice: Does God-sourced joy sustain when circumstances fail?',
+              'Share your joy source with someone who is joyless',
+              'Count 100 gifts from God this week (list them all)',
+              'Journal: How has shifting joy\'s source changed you?',
+              'Reflect: How has joy become strength in your daily life?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Eat colorfully while building God-sourced joy.',
+        scripture: {
+          text: 'You will show me the path of life; in Your presence is fullness of joy; at Your right hand are pleasures forevermore.',
+          ref: 'Psalm 16:11 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Color + Joy',
+            days: [
+              'Eat 3+ colors at breakfast + declare joy scripture',
+              'Add one new colorful vegetable + thank God for it',
+              'Start D3 supplement + worship for 5 minutes',
+              'Colorful lunch + write 3 things stealing your joy',
+              'Eat the rainbow at dinner + choose joy despite circumstance',
+              'Count colors eaten today + count blessings received today',
+              'Reflect: How do colorful food + colorful faith connect?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Both',
+            days: [
+              'All supplements (D3, C, zinc) + 10 morning gratitudes',
+              'Colorful food every meal + declare: joy is my strength',
+              'Eat purple + give joy away (encourage someone specific)',
+              'Notice immune strength improving + joy strengthening',
+              'Colorful cooking + worship before meal',
+              'Track colors eaten + track joy sources this week',
+              'Reflect: How is body + soul becoming more vibrant?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Fullness',
+            days: [
+              'Rainbow eating every day + morning joy declaration',
+              'Supplement protocol complete + gratitude list 100 gifts',
+              'Hard moment: choose colorful food + choose joy simultaneously',
+              'Share both practices with someone lacking energy and joy',
+              'Notice fullness: vibrant body + vibrant soul',
+              'Journal: How has color + joy transformed you?',
+              'Reflect: How does fullness of nourishment + joy feel?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'fats', 
+    icon: '🥑', 
+    name: 'Fats · Gentleness · Hormonal',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'What fats do you cook with most often?',
+        type: 'physical',
+        options: [
+          'Vegetable or canola oil',
+          'Olive oil',
+          'Butter or ghee',
+          'A mix of butter, olive oil, and coconut oil'
+        ]
+      },
+      {
+        q: 'Do you eat avocados, nuts, fatty fish (salmon), or egg yolks regularly?',
+        type: 'physical',
+        options: [
+          'Rarely or never',
+          'Once or twice per week',
+          'Most days',
+          'Every day'
+        ]
+      },
+      {
+        q: 'How do you typically respond when someone makes a mistake?',
+        type: 'spiritual',
+        options: [
+          'Harsh criticism or anger',
+          'Disappointment and withdrawal',
+          'Patience, but I struggle not to say something',
+          'Grace and gentleness—I give benefit of the doubt'
+        ]
+      },
+      {
+        q: 'Do you have symptoms of hormonal imbalance (mood swings, fatigue, brain fog, irregular cycles)?',
+        type: 'physical',
+        options: [
+          'Yes, significant symptoms',
+          'Yes, mild symptoms',
+          'Occasionally',
+          'No, I feel balanced'
+        ]
+      },
+      {
+        q: 'How do you speak to yourself when you make a mistake?',
+        type: 'spiritual',
+        options: [
+          'Harsh self-criticism—I tear myself down',
+          'Frustrated, but I try to move on',
+          'I can show myself grace, but it\'s hard',
+          'I extend the same grace to myself that God extends to me'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Fat Deficiency / Wrong Fats',
+        text: 'Eliminate seed oils and add hormone-building fats.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Eliminate Seed Oils',
+            days: [
+              'Throw out: canola, vegetable, sunflower, soybean, corn oil',
+              'Replace with: butter, ghee, coconut oil, tallow, lard',
+              'Cook breakfast in butter today (eggs, meat)',
+              'Read ALL labels—seed oils hide in everything processed',
+              'Drizzle olive oil on salad + vegetables (cold use only)',
+              'Notice: How does food taste cooked in real fat vs seed oil?',
+              'Reflect: How does eliminating inflammatory fats feel in body?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Add Hormone Fats',
+            days: [
+              'Eat 1/2 avocado daily (hormones need this fat)',
+              'Eat 4oz wild salmon 3x this week (omega-3 for hormones)',
+              'Add 2 egg yolks to breakfast (cholesterol = hormone precursor)',
+              'Snack on Brazil nuts + macadamia nuts (hormone-supportive)',
+              'Cook everything in butter or ghee this week',
+              'Notice mood improvements as hormones start balancing',
+              'Reflect: Do you feel calmer/clearer with hormone-supportive fats?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Hormone Balance Mastery',
+            days: [
+              'Real fats only (zero seed oils) + avocado daily',
+              'Wild salmon twice this week + egg yolks every day',
+              'Notice: brain clarity, mood stability, energy improvements',
+              'Track: hormone symptoms reducing as fats improve',
+              'Share fat truth with someone still using vegetable oil',
+              'Journal: How has adding real fats changed how you feel?',
+              'Reflect: How has fat upgrade balanced your body?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Harshness Pattern',
+        text: 'Focus on gentleness and grace practice toward self and others.',
+        scripture: {
+          text: 'Let your gentleness be known to all men. The Lord is at hand.',
+          ref: 'Philippians 4:5 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Notice Harshness',
+            days: [
+              'Track every harsh thought or word (toward others)',
+              'Track every harsh thought (toward yourself)',
+              'When harsh impulse rises, pause for 5 seconds before speaking',
+              'Pray: "Let my gentleness be known as You are gentle with me"',
+              'Identify who receives your harshness most (self? partner? kids?)',
+              'Replace one harsh word with a gentle one today',
+              'Reflect: What fuels your harshness? Stress? Expectation? Fear?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Practice Grace',
+            days: [
+              'When someone fails: respond with grace before correction',
+              'When YOU fail: say "God\'s grace covers this" out loud',
+              'Speak gently to yourself in the mirror—no harsh self-talk',
+              'Give benefit of the doubt to one person who irritates you',
+              'Pray: "Make me gentle as You are gentle" before interactions',
+              'Notice how gentleness affects others\' responses to you',
+              'Reflect: Is gentleness changing your relationships?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Grace Overflow',
+            days: [
+              'Extend grace before it\'s asked for—proactively',
+              'Respond gently in a situation that normally provokes harshness',
+              'Teach gentleness by modeling it—no lectures, just fruit',
+              'Notice: does gentleness toward self = more capacity for others?',
+              'Track: harsh responses vs gentle responses this week',
+              'Journal: How has gentleness + grace transformed interactions?',
+              'Reflect: How has gentleness changed you from the inside out?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Upgrade fats while practicing daily grace and gentleness.',
+        scripture: {
+          text: 'The fruit of the Spirit is love, joy, peace, longsuffering, kindness, goodness, faithfulness, gentleness, self-control.',
+          ref: 'Galatians 5:22-23 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Upgrade Both',
+            days: [
+              'Throw out seed oils + track one harsh pattern today',
+              'Cook in butter + replace one harsh word with gentle',
+              'Eat avocado + pray for gentleness before interactions',
+              'Real fats at every meal + give grace when someone fails',
+              'Egg yolks + speak gently to yourself today',
+              'Wild salmon + pause 5 sec before harsh response',
+              'Reflect: Are gentle fats + gentle spirit related?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Both',
+            days: [
+              'Only real fats today + respond with grace first',
+              'Avocado daily + give benefit of the doubt to irritating person',
+              'Track hormone improvements + harshness pattern reductions',
+              'Butter/ghee always + mirror practice: speak grace to self',
+              'Fatty fish this week + proactively extend grace',
+              'Notice: gentle food choices + gentle spirit both require intention',
+              'Reflect: How is integrated upgrade changing body + spirit?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Mastery',
+            days: [
+              'Zero seed oils forever + zero harsh self-talk forever',
+              'Real fats daily + grace-first responses daily',
+              'Notice hormonal balance + relational harmony improving',
+              'Model both to someone struggling with food + harshness',
+              'Track transformation: body hormones + heart posture',
+              'Journal: How has fat + gentleness upgrade changed you?',
+              'Reflect: How do healthy fats + gracious spirit create wholeness?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'kitchen', 
+    icon: '🍳', 
+    name: 'Kitchen Tools · Goodness · Digestive',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'What do you cook with most often?',
+        type: 'physical',
+        options: [
+          'Non-stick (Teflon) pans',
+          'Stainless steel',
+          'Cast iron or carbon steel',
+          'Mix of cast iron, stainless, and glass'
+        ]
+      },
+      {
+        q: 'What do you store food in?',
+        type: 'physical',
+        options: [
+          'Plastic containers (Tupperware, zip-lock bags)',
+          'Mix of plastic and glass',
+          'Mostly glass',
+          'All glass, ceramic, or stainless steel'
+        ]
+      },
+      {
+        q: 'How do you think about doing good for others?',
+        type: 'spiritual',
+        options: [
+          'I rarely think about it—I\'m focused on my own needs',
+          'I want to, but I\'m too busy or depleted',
+          'I do good occasionally when it\'s convenient',
+          'I actively look for opportunities to do good'
+        ]
+      },
+      {
+        q: 'Do you have digestive issues (bloating, gas, constipation, irregular digestion)?',
+        type: 'physical',
+        options: [
+          'Yes, severe and frequent',
+          'Yes, mild but regular',
+          'Occasionally',
+          'No, digestion is strong'
+        ]
+      },
+      {
+        q: 'When you do good for someone, what motivates you?',
+        type: 'spiritual',
+        options: [
+          'Obligation or fear of judgment',
+          'Wanting to be seen as a good person',
+          'Genuine care, but also wanting something in return',
+          'Pure love—expecting nothing, glorifying God'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Toxic Cookware',
+        text: 'Replace toxic tools with cast iron, glass, and stainless steel.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Audit & Replace',
+            days: [
+              'Identify all Teflon/non-stick pans in your kitchen',
+              'Research: What happens when Teflon overheats? (PFOA/PTFE)',
+              'Buy one cast iron skillet (Lodge 10" is affordable and lasts forever)',
+              'Season cast iron properly: coat in lard/tallow, bake at 400°F 1 hour',
+              'Cook first meal in cast iron—notice heat distribution',
+              'Replace one plastic container with glass storage',
+              'Reflect: How does cooking in safe tools change your mindset?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Full Cookware Upgrade',
+            days: [
+              'Remove ALL Teflon from your kitchen (donate or discard)',
+              'Cook eggs in cast iron with butter—no sticking when properly seasoned',
+              'Replace plastic cutting boards with wood or bamboo',
+              'Replace plastic wrap with beeswax wrap or glass containers',
+              'Cook everything this week in cast iron or stainless steel',
+              'Notice digestive improvements from reduced toxin exposure',
+              'Reflect: How does removing hidden toxins improve your gut?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Complete Detox Kitchen',
+            days: [
+              'All plastic food storage gone—only glass and stainless',
+              'Cast iron or stainless steel for ALL cooking',
+              'Wooden or bamboo utensils (no plastic in hot food)',
+              'Glass or stainless water bottles (no plastic)',
+              'Notice digestion, energy, hormone improvements',
+              'Share kitchen detox with someone using Teflon daily',
+              'Reflect: How does a clean kitchen create a healthy body?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Passive Goodness',
+        text: 'Move from passive to active goodness—seek opportunities daily.',
+        scripture: {
+          text: 'And do not forget to do good and to share, for with such sacrifices God is well pleased.',
+          ref: 'Hebrews 13:16 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Notice & Act',
+            days: [
+              'Identify 3 opportunities to do good that you normally ignore',
+              'Do one act of goodness today that costs you something',
+              'Do good anonymously—don\'t tell anyone',
+              'Ask God: "Show me who needs good done to them today"',
+              'Do good to someone who cannot repay you',
+              'Notice: How does active goodness change your own soul?',
+              'Reflect: Have you been waiting for goodness to be convenient?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Intentional Goodness',
+            days: [
+              'Plan one act of goodness before you start your day',
+              'Do good in your home first (often hardest)',
+              'Do good to a stranger—without expectation',
+              'Share something you have with someone who has less',
+              'Notice how goodness connects to physical energy',
+              'Pray: "Let me be a vessel of Your goodness today"',
+              'Reflect: How does intentional goodness change your daily life?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Goodness as Lifestyle',
+            days: [
+              'Do good before being asked—anticipate needs',
+              'Goodness in kitchen (clean tools) + goodness in community',
+              'Give something costly away—money, time, or resource',
+              'Look for good opportunities in frustrating situations',
+              'Model active goodness to someone passive',
+              'Journal: How has intentional goodness transformed you?',
+              'Reflect: How has goodness become your natural response?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Clean your kitchen while activating a lifestyle of goodness.',
+        scripture: {
+          text: 'For we are His workmanship, created in Christ Jesus for good works, which God prepared beforehand that we should walk in them.',
+          ref: 'Ephesians 2:10 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Upgrade Both',
+            days: [
+              'Remove Teflon pan + do one act of goodness today',
+              'Buy cast iron + do good anonymously',
+              'Replace plastic container with glass + share something',
+              'Season cast iron + pray for goodness opportunities',
+              'Cook in safe tools + do good to someone who can\'t repay',
+              'Audit kitchen toxins + ask God who needs good done',
+              'Reflect: How do clean kitchen + active goodness connect?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Deepen Both',
+            days: [
+              'All Teflon gone + goodness planned before day starts',
+              'Cast iron/stainless only + do good in your home first',
+              'Glass storage everywhere + share resource with someone',
+              'Wooden utensils + goodness to a stranger today',
+              'Track digestive improvements + goodness acts this week',
+              'Cook in clean tools + notice how goodness builds',
+              'Reflect: How does physical detox + active goodness feel?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Complete',
+            days: [
+              'All cooking tools safe (no Teflon, plastic, or toxic materials)',
+              'Do good before being asked—anticipate needs',
+              'Clean kitchen habits permanent + goodness as lifestyle',
+              'Share both upgrades with someone still using toxic tools',
+              'Notice: Clean tools + clean heart = clean living',
+              'Journal: How has both upgrades transformed your life?',
+              'Reflect: How does being God\'s workmanship feel in practice?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'seeds', 
+    icon: '🌻', 
+    name: 'Seeds · Faithfulness · Reproductive',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'Do you eat seeds (chia, flax, hemp, pumpkin, sunflower) regularly?',
+        type: 'physical',
+        options: [
+          'Never—I don\'t think about seeds',
+          'Occasionally (once or twice a month)',
+          'Weekly',
+          'Daily—they\'re a regular part of my diet'
+        ]
+      },
+      {
+        q: 'Do you have hormone-related symptoms (irregular cycles, PMS, low testosterone, mood issues)?',
+        type: 'physical',
+        options: [
+          'Yes, significant issues',
+          'Yes, mild symptoms',
+          'Occasionally',
+          'No, hormones feel balanced'
+        ]
+      },
+      {
+        q: 'How do you handle long-term commitments when results are slow?',
+        type: 'spiritual',
+        options: [
+          'I quit when I don\'t see results quickly',
+          'I stay but with significant doubt and wavering',
+          'I persist but need constant encouragement',
+          'I stay faithful regardless of visible results'
+        ]
+      },
+      {
+        q: 'Do you eat foods high in omega-3s and zinc (fish, nuts, seeds)?',
+        type: 'physical',
+        options: [
+          'Rarely',
+          'A few times per week',
+          'Most days',
+          'Every day'
+        ]
+      },
+      {
+        q: 'How faithful are you to commitments you\'ve made to God?',
+        type: 'spiritual',
+        options: [
+          'I make commitments but rarely keep them',
+          'I keep them when it\'s easy, but bail when hard',
+          'I\'m mostly faithful, but struggle with follow-through',
+          'I remain faithful even when costly or invisible'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Seed & Hormone Deficiency',
+        text: 'Cycle seeds for hormone support and add targeted nutrients.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Introduce Seeds',
+            days: [
+              'Buy: chia seeds, flaxseeds, hemp seeds, pumpkin seeds',
+              'Add 1 tbsp chia seeds to water or smoothie (morning)',
+              'Add 1 tbsp ground flaxseed to breakfast (hormone support)',
+              'Sprinkle hemp seeds on salad or yogurt (complete protein)',
+              'Snack on pumpkin seeds (zinc for hormone production)',
+              'Notice: energy, mood, or cycle regularity changes?',
+              'Reflect: How does planting seed habits feel?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Seed Cycling Foundation',
+            days: [
+              'Days 1-14 of cycle: 1 tbsp flax + 1 tbsp pumpkin seed daily',
+              'Days 15-28 of cycle: 1 tbsp sesame + 1 tbsp sunflower daily',
+              'Add omega-3s: wild salmon, sardines, or fish oil supplement',
+              'Add zinc-rich foods: pumpkin seeds, beef, oysters',
+              'Track hormone symptoms improving with seed cycling',
+              'Notice energy changes throughout hormonal cycle',
+              'Reflect: Does seed cycling change your hormonal patterns?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Consistency & Tracking',
+            days: [
+              'Seeds every day (non-negotiable part of routine)',
+              'Seed cycling protocol—stay on phase for your cycle day',
+              'Add magnesium glycinate for hormone and sleep support',
+              'Track PMS symptoms, energy, and mood across cycle',
+              'Share seed cycling with someone with hormone issues',
+              'Journal: How has planting seed habits produced fruit?',
+              'Reflect: How has consistent seeding changed your body?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Faithfulness Gap',
+        text: 'Focus on small commitments faithfully kept over time.',
+        scripture: {
+          text: 'His lord said to him, "Well done, good and faithful servant; you were faithful over a few things, I will make you ruler over many things."',
+          ref: 'Matthew 25:21 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Small Faithfulness',
+            days: [
+              'Identify one commitment you\'ve been unfaithful to',
+              'Make one small commitment and keep it perfectly for 7 days',
+              'Tell one person about your commitment (accountability)',
+              'When you want to quit, pray: "Be faithful in small"',
+              'Track your commitment streak daily',
+              'Notice: How does small faithfulness build trust with God?',
+              'Reflect: What commitments has God been faithful to with you?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Faithfulness Under Pressure',
+            days: [
+              'Keep your commitment even on a hard day',
+              'Keep it even when no one sees or rewards you',
+              'Identify a second commitment—stack on first',
+              'Pray: "Make me faithful in what You\'ve entrusted to me"',
+              'Notice: Does faithfulness create confidence and peace?',
+              'Write about a time God was faithful when you were faithless',
+              'Reflect: How is faithfulness producing fruit in your life?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Faithful Stewardship',
+            days: [
+              'Keep both commitments faithfully—no exceptions',
+              'Look back: 14 days of faithfulness—what has grown?',
+              'Identify one area God has entrusted to you—steward it well',
+              'Be faithful in body (seeds) + faithful in spirit (commitment)',
+              'Teach someone the seed principle: small + faithful = harvest',
+              'Journal: How has 21 days of faithfulness changed you?',
+              'Reflect: How does faithful planting feel vs abandoned seeds?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Plant seeds daily in body and soul—faithful in small things.',
+        scripture: {
+          text: 'Do not be deceived, God is not mocked; for whatever a man sows, that he will also reap.',
+          ref: 'Galatians 6:7 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Plant Both',
+            days: [
+              'Add chia seeds to morning routine + make one commitment',
+              'Ground flaxseed at breakfast + tell someone your commitment',
+              'Hemp seeds on lunch + keep commitment even on hard day',
+              'Pumpkin seeds as snack + pray for faithfulness',
+              'All 4 seeds this week + track commitment streak',
+              'Notice hormone seeds planted + faithfulness seeds planted',
+              'Reflect: Does planting in body + soul feel connected?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Consistency',
+            days: [
+              'Seed cycling phase + second commitment added',
+              'Seeds every day + both commitments kept',
+              'Omega-3s added + faithfulness under pressure practiced',
+              'Track cycle improvements + commitment streak growing',
+              'Seeds even when inconvenient + commitment even when hard',
+              'Notice: faithfulness in body feeds faithfulness in spirit',
+              'Reflect: How does consistent planting change expectations?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Harvest',
+            days: [
+              'Seeds daily forever + commitments kept forever',
+              'Look back: What has grown from 14 days of planting?',
+              'Share seed cycling + faithfulness principle with someone',
+              'Notice harvest: hormone health + trustworthy character',
+              'Be faithful in small—God is watching and rewarding',
+              'Journal: What harvest has 21 days of planting produced?',
+              'Reflect: How has faithful planting in body + soul changed you?'
+            ]
+          }
+        }
+      }
+    }
+  },
+  { 
+    id: 'freedom', 
+    icon: '🕊️', 
+    name: 'Freedom Foods · Self-Control · Mental',
+    quizType: 'physicalSpiritual',
+    quiz: [
+      {
+        q: 'How much refined sugar do you consume daily?',
+        type: 'physical',
+        options: [
+          'A lot—sweets, sodas, processed snacks daily',
+          'Moderate—a dessert or sweetened drink most days',
+          'Minimal—I rarely eat added sugar',
+          'Almost none—I\'ve eliminated refined sugar'
+        ]
+      },
+      {
+        q: 'How do you feel about food rules and restrictions?',
+        type: 'physical',
+        options: [
+          'Restricted and rebellious—I hate being told what not to eat',
+          'Anxious—I worry about eating "wrong"',
+          'Neutral—food is fuel, not identity',
+          'Free—I eat intentionally without guilt or obsession'
+        ]
+      },
+      {
+        q: 'How do you handle strong urges or cravings (food, phone, entertainment)?',
+        type: 'spiritual',
+        options: [
+          'I always give in immediately',
+          'I resist sometimes but usually cave',
+          'I can resist, but it takes significant willpower',
+          'I surrender the urge to God and move on with peace'
+        ]
+      },
+      {
+        q: 'Do you eat when you\'re not hungry (boredom, stress, emotion)?',
+        type: 'physical',
+        options: [
+          'Yes, very often—food is my comfort',
+          'Yes, regularly when stressed',
+          'Occasionally',
+          'Rarely—I eat when hungry, stop when full'
+        ]
+      },
+      {
+        q: 'What is your relationship with self-discipline?',
+        type: 'spiritual',
+        options: [
+          'I have almost none—I do what feels good',
+          'I have willpower but it runs out quickly',
+          'I\'m disciplined in some areas but not others',
+          'I walk in Spirit-led self-control consistently'
+        ]
+      }
+    ],
+    protocols: {
+      physical: {
+        name: 'Sugar & Food Bondage',
+        text: 'Break sugar addiction and establish freedom-based eating habits.',
+        scripture: null,
+        habits: {
+          week1: {
+            title: 'Week 1: Identify & Eliminate',
+            days: [
+              'Write every source of refined sugar you consume (be honest)',
+              'Eliminate soda entirely—replace with sparkling water + lemon',
+              'Remove all candy, cookies, pastries from your home',
+              'Notice cravings—when do they hit? (times, emotions, triggers)',
+              'Replace sweet craving with protein + fat (stabilizes blood sugar)',
+              'Don\'t white-knuckle it—eat real food to crowd out sugar',
+              'Reflect: What emotions or situations trigger sugar cravings?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Crowd Out Sugar',
+            days: [
+              'Zero refined sugar today (fruit is okay)',
+              'Every craving: drink 16oz water first, then decide',
+              'Replace dessert with full-fat Greek yogurt + berries',
+              'Notice: Do cravings lessen as real food crowds out sugar?',
+              'Eat protein and fat at every meal (no blood sugar crashes)',
+              'Notice mental clarity improvements without sugar crashes',
+              'Reflect: How does freedom from sugar feel vs bondage to it?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Establish Freedom',
+            days: [
+              '21-day sugar detox complete—notice mental and physical changes',
+              'Eat intentionally—food is fuel and information, not reward',
+              'Notice: freedom to choose vs compulsion to consume',
+              'Share sugar freedom strategy with someone in sugar bondage',
+              'Create sustainable freedom: real food, no rules, no obsession',
+              'Journal: How has sugar elimination changed body and mind?',
+              'Reflect: How has food freedom changed your relationship with eating?'
+            ]
+          }
+        }
+      },
+      spiritual: {
+        name: 'Self-Control Deficit',
+        text: 'Focus on Spirit-led self-control over all appetite areas.',
+        scripture: {
+          text: 'For God has not given us a spirit of fear, but of power and of love and of a sound mind.',
+          ref: '2 Timothy 1:7 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Identify Control Patterns',
+            days: [
+              'Identify 3 areas where you lack self-control (food, phone, media)',
+              'When urge hits: pause 10 seconds before responding',
+              'Pray: "Spirit, give me self-control in this moment"',
+              'Notice: Are you running from something when you overindulge?',
+              'Replace one indulgence habit with 5 minutes of prayer',
+              'Track urges and responses (gave in vs surrendered to Spirit)',
+              'Reflect: Where does your self-control tend to break down?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Spirit-Led Control',
+            days: [
+              'Start day declaring: "I have a sound mind and self-control"',
+              'When craving hits: surrender to God before deciding',
+              'Fast from one comfort today (food, phone, Netflix)',
+              'Notice: Spirit-led control vs willpower (one is sustainable)',
+              'Practice pausing before every habit response',
+              'Pray for freedom from any area of compulsion',
+              'Reflect: How is Spirit-led control different from self-discipline?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Freedom Walk',
+            days: [
+              'Surrender compulsive pattern to God—declare freedom',
+              'Walk in power, love, and sound mind (2 Tim 1:7)',
+              'Freedom = choosing good because you\'re free, not forced',
+              'Share Spirit-led control strategy with someone struggling',
+              'Notice mental clarity that comes with surrendered self-control',
+              'Journal: How has Spirit-led self-control changed you?',
+              'Reflect: How does walking in freedom feel vs compulsion?'
+            ]
+          }
+        }
+      },
+      both: {
+        name: 'Both Physical & Spiritual',
+        text: 'Break food bondage while building Spirit-led self-control.',
+        scripture: {
+          text: 'All things are lawful for me, but I will not be brought under the power of any.',
+          ref: '1 Corinthians 6:12 NKJV'
+        },
+        habits: {
+          week1: {
+            title: 'Week 1: Identify Both',
+            days: [
+              'Write all sugar sources + identify 3 control weakness areas',
+              'Eliminate soda + pause 10 seconds before any urge response',
+              'Remove sweets from home + replace one indulgence with prayer',
+              'Notice sugar cravings + notice when other urges hit',
+              'Protein + fat instead of sugar + declare sound mind',
+              'Track sugar intake + track urge responses this week',
+              'Reflect: Are food bondage + self-control connected?'
+            ]
+          },
+          week2: {
+            title: 'Week 2: Break Both',
+            days: [
+              'Zero refined sugar + Spirit-led surrender for every urge',
+              'Water before every craving + pray before every habit',
+              'Real food crowds out sugar + Spirit crowds out compulsion',
+              'Notice: physical freedom + spiritual freedom feel the same',
+              'Fast from one food + one comfort technology today',
+              'Eat for fuel + live for God (not comfort)',
+              'Reflect: How does breaking food + habit bondage feel?'
+            ]
+          },
+          week3: {
+            title: 'Week 3: Walk in Freedom',
+            days: [
+              '21-day sugar free + 21-day Spirit-led choices',
+              'Notice: no compulsion in eating or other habit areas',
+              'Freedom: I can eat anything but won\'t be brought under power of any',
+              'Share integrated freedom with someone in bondage',
+              'Track: food freedom + self-control transformation',
+              'Journal: How has body + soul freedom transformed your life?',
+              'Reflect: What does true freedom in body and spirit feel like?'
+            ]
+          }
+        }
+      }
+    }
+  }
+];
+
+let currentCategory = null;
+let answers = {};
+let totalQuestions = 0;
+
+function getScoreClass(score) {
+  if (score < 55) return 'critical';
+  if (score < 75) return 'attention';
+  return 'strong';
+}
+
+function getPriorityLabel(score) {
+  if (score < 55) return 'Critical';
+  if (score < 75) return 'Attention';
+  return 'Strong';
+}
+
+function renderDashboard() {
+  const list = document.getElementById('categoryList');
+  const sortedCats = [...categories].sort((a, b) => userData.scores[a.id] - userData.scores[b.id]);
+  
+  sortedCats.forEach(cat => {
+    const score = userData.scores[cat.id];
+    const scoreClass = getScoreClass(score);
+    const isPriority = score < 75;
+    
+    const row = document.createElement('div');
+    row.className = `category-row ${isPriority ? 'priority' : ''}`;
+    row.innerHTML = `
+      <div class="category-icon">${cat.icon}</div>
+      <div class="category-info">
+        <div class="category-name">${cat.name}</div>
+        <div class="category-score">
+          <div class="score-bar">
+            <div class="score-fill ${scoreClass}" style="width: ${score}%"></div>
+          </div>
+          <div class="score-text ${scoreClass === 'critical' ? 'text-red' : scoreClass === 'attention' ? 'text-yellow' : 'text-green'}" style="color: ${scoreClass === 'critical' ? '#d32f2f' : scoreClass === 'attention' ? '#f4c430' : '#85ba5b'}">${score}%</div>
+        </div>
+      </div>
+      <span class="priority-badge ${scoreClass}">${getPriorityLabel(score)}</span>
+      ${isPriority ? `<button class="deep-dive-btn" onclick="openDeepDive('${cat.id}')">Deep Dive →</button>` : ''}
+    `;
+    list.appendChild(row);
+  });
+}
+
+function openDeepDive(categoryId) {
+  currentCategory = categories.find(c => c.id === categoryId);
+  answers = {};
+  totalQuestions = currentCategory.quiz.length;
+  
+  document.getElementById('modalTitle').textContent = currentCategory.name;
+  document.getElementById('modalSubtitle').textContent = 'Root Cause Assessment';
+  
+  // Show quiz, hide results
+  document.getElementById('quizSection').style.display = 'block';
+  document.getElementById('resultsSection').classList.remove('active');
+  document.getElementById('submitQuizBtn').disabled = true;
+  
+  renderQuiz();
+  document.getElementById('gapCloserModal').classList.add('active');
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizQuestions');
+  container.innerHTML = '';
+  
+  currentCategory.quiz.forEach((q, qIndex) => {
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'quiz-question';
+    
+    const optionsHTML = q.options.map((opt, optIndex) => `
+      <div class="quiz-option" onclick="selectAnswer(${qIndex}, ${optIndex})" id="option-${qIndex}-${optIndex}">
+        <div class="quiz-radio"></div>
+        <div class="quiz-option-text">${opt}</div>
+      </div>
+    `).join('');
+    
+    questionDiv.innerHTML = `
+      <div class="question-text">${qIndex + 1}. ${q.q}</div>
+      ${optionsHTML}
+    `;
+    
+    container.appendChild(questionDiv);
+  });
+}
+
+function selectAnswer(qIndex, optIndex) {
+  // Deselect previous answer for this question
+  const prevAnswer = answers[qIndex];
+  if (prevAnswer !== undefined) {
+    document.getElementById(`option-${qIndex}-${prevAnswer}`).classList.remove('selected');
+  }
+  
+  // Select new answer — store the option index (0–3)
+  answers[qIndex] = optIndex;
+  document.getElementById(`option-${qIndex}-${optIndex}`).classList.add('selected');
+  
+  // Enable submit if all answered
+  if (Object.keys(answers).length === totalQuestions) {
+    document.getElementById('submitQuizBtn').disabled = false;
+  }
+}
+
+function submitQuiz() {
+  // Score by answer index:
+  // index 0 = most physical (score 0)
+  // index 1 = more physical (score 1)
+  // index 2 = more spiritual (score 2)
+  // index 3 = most spiritual / healthy (score 3)
+  // We map answers to physical vs spiritual tendency
+  
+  let physicalScore = 0;
+  let spiritualScore = 0;
+  
+  currentCategory.quiz.forEach((q, qIndex) => {
+    const answerIndex = answers[qIndex]; // 0, 1, 2, or 3
+    if (q.type === 'physical') {
+      // Lower index = more physical problem; higher index = less problem
+      // Score 0-1 = physical issue present
+      if (answerIndex <= 1) physicalScore += 1;
+    } else if (q.type === 'spiritual') {
+      // Lower index = more spiritual problem
+      if (answerIndex <= 1) spiritualScore += 1;
+    }
+  });
+  
+  let protocolKey;
+  if (physicalScore > 0 && spiritualScore > 0) {
+    protocolKey = 'both';
+  } else if (spiritualScore > 0) {
+    protocolKey = 'spiritual';
+  } else {
+    protocolKey = 'physical';
+  }
+  
+  const protocol = currentCategory.protocols[protocolKey];
+  showResults(protocol);
+}
+
+function showResults(protocol) {
+  document.getElementById('quizSection').style.display = 'none';
+  
+  document.getElementById('rootCause').textContent = protocol.name;
+  document.getElementById('protocolText').textContent = protocol.text;
+  
+  // Scripture
+  const scriptureBox = document.getElementById('scriptureBox');
+  if (protocol.scripture) {
+    document.getElementById('scriptureText').textContent = `"${protocol.scripture.text}"`;
+    document.getElementById('scriptureRef').textContent = `— ${protocol.scripture.ref}`;
+    scriptureBox.style.display = 'block';
+  } else {
+    scriptureBox.style.display = 'none';
+  }
+  
+  // Protocol details
+  const detailsContainer = document.getElementById('protocolDetails');
+  detailsContainer.innerHTML = '';
+  
+  ['week1', 'week2', 'week3'].forEach(week => {
+    const weekData = protocol.habits[week];
+    const weekDiv = document.createElement('div');
+    weekDiv.className = 'week-group';
+    
+    const daysHTML = weekData.days.map(day => `
+      <div class="day-item">
+        <div class="day-checkbox"></div>
+        <div>${day}</div>
+      </div>
+    `).join('');
+    
+    weekDiv.innerHTML = `
+      <div class="week-header">${weekData.title}</div>
+      ${daysHTML}
+    `;
+    
+    detailsContainer.appendChild(weekDiv);
+  });
+  
+  document.getElementById('resultsSection').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('gapCloserModal').classList.remove('active');
+}
+
+// ── Access-code gate ──
+(function () {
+  if (localStorage.getItem('needs_balance_access_code') === '1234') {
+    document.getElementById('access-modal').classList.add('hidden');
+  }
+  document.getElementById('access-input').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') checkAccessCode();
+  });
+})();
+
+function checkAccessCode() {
+  var input = document.getElementById('access-input');
+  var err   = document.getElementById('access-error');
+  if (input.value.trim() === '1234') {
+    localStorage.setItem('needs_balance_access_code', '1234');
+    document.getElementById('access-modal').classList.add('hidden');
+    err.textContent = '';
+  } else {
+    err.textContent = 'Incorrect code. Please try again.';
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    input.value = '';
+    setTimeout(function () { input.classList.remove('shake'); }, 450);
+  }
+}
+
+renderDashboard();
+</script>
+
+<!-- Footer Badge -->
+<img id="footer-badge" src="3.png" alt="Badge">
+
+</body>
 </html>
