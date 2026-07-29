@@ -654,82 +654,6 @@
     }
   }
 
-  /* ── Access-code modal ── */
-  #access-modal {
-    position: fixed;
-    inset: 0;
-    background: #334722;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 2rem;
-  }
-  #access-modal.hidden { display: none; }
-  .modal-inner {
-    text-align: center;
-    max-width: 360px;
-    width: 100%;
-  }
-  .modal-inner h2 {
-    font-family: 'Playfair Display', serif;
-    color: white;
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
-  }
-  .modal-inner p {
-    color: rgba(255,255,255,0.75);
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-  }
-  #access-input {
-    width: 100%;
-    padding: 0.85rem 1rem;
-    border-radius: 10px;
-    border: 2px solid rgba(255,255,255,0.3);
-    background: white;
-    color: #1a1a1a;
-    font-size: 1.1rem;
-    text-align: center;
-    letter-spacing: 0.2em;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 0.75rem;
-    display: block;
-  }
-  #access-input::placeholder { color: rgba(0,0,0,0.35); }
-  #access-input:focus { border-color: #f9d53d; }
-  #access-btn {
-    width: 100%;
-    padding: 0.85rem;
-    border-radius: 10px;
-    border: none;
-    background: #ee3c8a;
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    font-family: 'Nunito Sans', sans-serif;
-    transition: background 0.2s;
-  }
-  #access-btn:hover { background: #d946a6; }
-  #access-error {
-    color: #f9d53d;
-    margin-top: 0.6rem;
-    font-size: 0.9rem;
-    min-height: 1.2em;
-  }
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%       { transform: translateX(-10px); }
-    40%       { transform: translateX(10px); }
-    60%       { transform: translateX(-8px); }
-    80%       { transform: translateX(8px); }
-  }
-  .shake { animation: shake 0.4s ease; }
-
   /* ── Footer badge ── */
   #footer-badge {
     position: fixed;
@@ -745,18 +669,6 @@
 </style>
 </head>
 <body>
-
-<!-- Access Code Modal -->
-<div id="access-modal">
-  <div class="modal-inner">
-    <h2>Access Required</h2>
-    <p>Enter your access code to unlock your Balance Blueprint.</p>
-    <input id="access-input" type="password" placeholder="Access code" maxlength="20" autocomplete="off" />
-    <button id="access-btn" onclick="checkAccessCode()">Unlock</button>
-    <div id="access-error"></div>
-  </div>
-</div>
-
 
 <div class="container">
   <div class="header">
@@ -2789,33 +2701,6 @@ function showResults(protocol) {
 
 function closeModal() {
   document.getElementById('gapCloserModal').classList.remove('active');
-}
-
-// ── Access-code gate ──
-(function () {
-  if (localStorage.getItem('needs_balance_access_code') === '1234') {
-    document.getElementById('access-modal').classList.add('hidden');
-  }
-  document.getElementById('access-input').addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') checkAccessCode();
-  });
-})();
-
-function checkAccessCode() {
-  var input = document.getElementById('access-input');
-  var err   = document.getElementById('access-error');
-  if (input.value.trim() === '1234') {
-    localStorage.setItem('needs_balance_access_code', '1234');
-    document.getElementById('access-modal').classList.add('hidden');
-    err.textContent = '';
-  } else {
-    err.textContent = 'Incorrect code. Please try again.';
-    input.classList.remove('shake');
-    void input.offsetWidth;
-    input.classList.add('shake');
-    input.value = '';
-    setTimeout(function () { input.classList.remove('shake'); }, 450);
-  }
 }
 
 renderDashboard();
