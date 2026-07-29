@@ -3,9 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Comforter&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green:#334722; --green-mid:#4a7c59;
+    --pink:#ee3c8a; --pink-dark:#d946a6;
+    --gold:#f9d53d; --gold-mid:#f4c430;
+    --cream:#fffef5;
+    --font-heading:'Merriweather',Georgia,serif;
+    --font-ui:'Josefin Sans',system-ui,-apple-system,sans-serif;
+  }
 
   /* Footer badge */
   #footer-badge {
@@ -16,223 +25,226 @@
     height: 90px;
     z-index: 100;
   }
-  
+
   body {
-    font-family: 'Nunito Sans', sans-serif;
-    background: #fffef5;
+    font-family: var(--font-ui);
+    background-color: var(--cream);
+    background-image: url('../assets/texture-linen.png');
+    background-size: 560px;
+    background-blend-mode: multiply;
     padding: 0;
     margin: 0;
+    color: #334722;
   }
-  
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  }
-  
-  .header {
-    background: linear-gradient(135deg, #f4c430 0%, #f9d53d 100%);
-    padding: 2.5rem 1.5rem;
+
+  a { color: var(--pink); }
+  a:hover { color: var(--pink-dark); }
+
+  .textured {
     position: relative;
-    overflow: hidden;
+    isolation: isolate;
   }
-  
-  .header::before {
+
+  .textured::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.1) 19px, rgba(255,255,255,0.1) 20px),
-      repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.1) 19px, rgba(255,255,255,0.1) 20px);
+    inset: 0;
+    z-index: -1;
+    background-image: url('../assets/texture-doodle.png');
+    background-size: 200px;
+    background-repeat: repeat;
+    opacity: 0.07;
     pointer-events: none;
   }
-  
-  .botanical-accent {
-    position: absolute;
-    opacity: 0.15;
-    pointer-events: none;
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: transparent;
+    overflow: hidden;
   }
-  
-  .botanical-accent.top-right {
-    top: -20px;
-    right: -20px;
-    font-size: 120px;
-    transform: rotate(25deg);
+
+  .header {
+    background: linear-gradient(135deg, var(--gold-mid) 0%, var(--gold) 100%);
+    padding: 3rem 2rem 2.25rem;
+    position: relative;
+    text-align: center;
   }
-  
-  .botanical-accent.bottom-left {
-    bottom: -30px;
-    left: -30px;
-    font-size: 100px;
-    transform: rotate(-15deg);
-  }
-  
+
+  .header > * { position: relative; z-index: 1; }
+
   .logo-section {
     margin-bottom: 1.5rem;
-    position: relative;
   }
-  
+
   .logo-image {
-    height: 60px;
+    height: 150px;
     width: auto;
+    filter: brightness(0) invert(1);
   }
-  
+
   .eyebrow {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: #334722;
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--green);
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    position: relative;
-    font-weight: 600;
+    margin-bottom: 0.9rem;
   }
-  
+
   h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
+    font-family: var(--font-heading);
+    font-size: 44px;
     font-weight: 700;
     color: #1a1a1a;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    position: relative;
+    line-height: 1.08;
+    margin-bottom: 1.1rem;
+    letter-spacing: -0.01em;
   }
   
   .gradient-word {
-    background: linear-gradient(135deg, #334722 0%, #4a7c59 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-style: italic;
+    color: var(--pink);
   }
-  
+
   .subtitle {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #2d2d2d;
-    margin-bottom: 1.5rem;
-    position: relative;
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a5340;
+    margin-bottom: 1.75rem;
+    max-width: 46ch;
+    margin-left: auto;
+    margin-right: auto;
   }
-  
+
   .header-buttons {
     display: flex;
     gap: 12px;
-    margin-bottom: 1rem;
-    position: relative;
+    margin-bottom: 1.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
   }
-  
+
   button {
-    padding: 12px 20px;
+    padding: 13px 24px;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: 100px;
+    font-size: 13px;
     font-weight: 600;
+    letter-spacing: 0.04em;
     cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'Nunito Sans', sans-serif;
+    transition: all 0.2s ease;
+    font-family: var(--font-ui);
   }
-  
+
   .btn-primary {
-    background: #ee3c8a;
+    background: var(--pink);
     color: white;
+    box-shadow: 0 6px 18px rgba(238,60,138,0.28);
   }
-  
+
   .btn-primary:hover {
-    background: #d946a6;
+    background: var(--pink-dark);
     transform: translateY(-1px);
   }
-  
+
   .btn-secondary {
-    background: #ee3c8a;
-    color: white;
+    background: rgba(51,71,34,0.08);
+    color: var(--green);
+    border: 1px solid rgba(51,71,34,0.2);
   }
-  
+
   .btn-secondary:hover {
-    background: #d946a6;
+    background: rgba(51,71,34,0.14);
     transform: translateY(-1px);
   }
-  
+
   .progress-bar {
-    background: rgba(51, 71, 34, 0.2);
+    background: rgba(51, 71, 34, 0.15);
     height: 8px;
-    border-radius: 4px;
+    border-radius: 100px;
     overflow: hidden;
+    max-width: 420px;
+    margin: 0 auto;
     position: relative;
   }
-  
+
   .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, #334722 0%, #4a7c59 100%);
     transition: width 0.4s ease;
-    border-radius: 4px;
+    border-radius: 100px;
   }
-  
+
   .progress-text {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    color: #2d2d2d;
-    margin-top: 8px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(51,71,34,0.55);
+    margin-top: 12px;
     position: relative;
   }
-  
+
   .content {
-    padding: 2rem 1.5rem;
+    padding: 2.25rem 2rem;
   }
-  
+
   .who-section {
-    background: #fffef5;
-    border-left: 4px solid #f9d53d;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(51,71,34,0.08);
+    border-left: 3px solid var(--gold);
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 2rem;
     position: relative;
   }
-  
+
   .who-section::after {
     content: '✨';
     position: absolute;
     bottom: 10px;
     right: 15px;
     font-size: 40px;
-    opacity: 0.2;
+    opacity: 0.15;
   }
-  
+
   .who-eyebrow {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    color: #334722;
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    color: var(--green);
     text-transform: uppercase;
     margin-bottom: 0.75rem;
-    font-weight: 600;
+    font-weight: 500;
   }
-  
+
   .who-text {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #2d2d2d;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.8;
+    color: #4a5340;
   }
-  
+
   .day-card {
-    background: white;
-    border: 2px solid #e5e5e5;
-    border-radius: 12px;
-    margin-bottom: 1rem;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(51,71,34,0.07);
+    border: 1px solid rgba(51,71,34,0.08);
+    border-radius: 18px;
+    margin-bottom: 0.85rem;
     overflow: hidden;
     transition: all 0.3s;
     position: relative;
   }
-  
+
   .day-card.locked {
     opacity: 0.5;
     pointer-events: none;
   }
-  
+
   .day-card.locked::after {
     content: '🔒';
     position: absolute;
@@ -243,236 +255,250 @@
     opacity: 0.3;
     pointer-events: none;
   }
-  
+
   .day-card.complete {
-    border-color: #4a7c59;
+    border-color: rgba(74,124,89,0.4);
     background: #f5f9f0;
   }
-  
+
   .day-card.complete::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
+    width: 3px;
     height: 100%;
     background: #4a7c59;
   }
-  
+
   .day-card.today {
-    border-color: #f9d53d;
-    box-shadow: 0 0 0 3px rgba(249, 213, 61, 0.2);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(249, 213, 61, 0.25);
   }
-  
+
   .day-header {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 1rem 1.25rem;
+    gap: 14px;
+    padding: 1.1rem 1.35rem;
     cursor: pointer;
     user-select: none;
-    background: white;
+    background: transparent;
   }
-  
+
   .day-header:hover {
-    background: #fafafa;
+    background: rgba(51,71,34,0.03);
   }
-  
+
   .icon-box {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(249, 213, 61, 0.2);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(249, 213, 61, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 22px;
     flex-shrink: 0;
     transition: all 0.3s;
   }
-  
+
   .day-card.complete .icon-box {
     background: #4a7c59;
   }
-  
+
   .day-info {
     flex: 1;
     min-width: 0;
   }
-  
+
   .day-meta {
-    font-family: 'Courier New', monospace;
-    font-size: 11px;
-    color: #666;
-    margin-bottom: 4px;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(51,71,34,0.5);
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    font-weight: 500;
   }
-  
+
   .day-title {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 17px;
     font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 2px;
+    color: var(--green);
+    margin-bottom: 3px;
+    line-height: 1.25;
   }
-  
+
   .day-focus {
-    font-size: 12px;
-    color: #666;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--pink);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1em;
   }
-  
+
   .chevron {
-    font-size: 18px;
-    color: #999;
+    font-size: 14px;
+    color: rgba(51,71,34,0.35);
     transition: transform 0.3s;
     flex-shrink: 0;
   }
-  
+
   .day-card.open .chevron {
     transform: rotate(180deg);
   }
-  
+
   .day-body {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease;
   }
-  
+
   .day-body.open {
     max-height: 3000px;
   }
-  
+
   .day-content {
-    padding: 0 1.25rem 1.25rem;
-    background: #fafafa;
+    padding: 0.25rem 1.35rem 1.35rem;
+    background: rgba(51,71,34,0.02);
   }
-  
+
   .action-section {
-    background: white;
-    border-left: 3px solid #f9d53d;
-    padding: 1rem;
-    margin: 0 0 1rem 0;
-    border-radius: 4px;
+    background: #fff;
+    border-left: 3px solid var(--gold);
+    padding: 1rem 1.1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
   }
-  
+
   .action-title {
-    font-weight: 700;
-    font-size: 14px;
-    color: #f4c430;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--gold-mid);
     margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
   }
-  
+
   .action-text {
+    font-family: var(--font-ui);
     font-size: 15px;
     line-height: 1.7;
-    color: #1a1a1a;
+    color: var(--green);
   }
-  
+
   .why-section {
-    background: white;
-    padding: 1rem;
+    background: #fff;
+    padding: 1rem 1.1rem;
     margin-bottom: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
   }
-  
+
   .why-title {
-    font-weight: 700;
-    font-size: 13px;
-    color: #666;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 10.5px;
+    color: rgba(51,71,34,0.5);
     margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
   }
-  
+
   .why-text {
+    font-family: var(--font-ui);
     font-size: 14px;
     line-height: 1.7;
-    color: #2d2d2d;
+    color: #4a5340;
   }
-  
+
   .prayer-section {
-    background: #fffef5;
+    background: rgba(74,124,89,0.06);
     border-left: 3px solid #4a7c59;
-    padding: 1rem;
+    padding: 1rem 1.1rem;
     margin-bottom: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
   }
-  
+
   .prayer-title {
-    font-weight: 700;
-    font-size: 13px;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 10.5px;
     color: #4a7c59;
     margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
   }
-  
+
   .prayer-text {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 14px;
     font-style: italic;
     color: #334722;
-    line-height: 1.6;
+    line-height: 1.7;
   }
-  
+
   .scripture-section {
-    background: #fef5f9;
-    border-left: 3px solid #ee3c8a;
-    padding: 1rem;
+    background: rgba(238,60,138,0.06);
+    border-left: 3px solid var(--pink);
+    padding: 1rem 1.1rem;
     margin-bottom: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
   }
-  
+
   .scripture-text {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 14px;
     font-style: italic;
     color: #c7156b;
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 8px;
   }
-  
+
   .scripture-ref {
-    font-size: 11px;
-    color: #999;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(51,71,34,0.45);
     font-style: normal;
   }
-  
+
   .checkpoint-section {
-    background: white;
-    padding: 1rem;
+    background: #fff;
+    padding: 1rem 1.1rem;
     margin-bottom: 1rem;
-    border-radius: 4px;
+    border-radius: 8px;
   }
-  
+
   .checkpoint-title {
-    font-weight: 700;
-    font-size: 13px;
-    color: #666;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 10.5px;
+    color: rgba(51,71,34,0.5);
     margin-bottom: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
   }
-  
+
   .checkpoint-item {
     display: flex;
     align-items: flex-start;
     gap: 12px;
     margin-bottom: 10px;
   }
-  
+
   .checkbox {
     width: 24px;
     height: 24px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
+    border: 2px solid rgba(51,71,34,0.25);
+    border-radius: 7px;
     flex-shrink: 0;
     cursor: pointer;
     transition: all 0.2s;
@@ -480,195 +506,294 @@
     align-items: center;
     justify-content: center;
     margin-top: 2px;
-    background: white;
+    background: transparent;
   }
-  
+
   .checkbox:hover {
     border-color: #4a7c59;
   }
-  
+
   .checkbox.checked {
     background: #4a7c59;
     border-color: #4a7c59;
   }
-  
+
   .checkbox.checked::after {
     content: '✓';
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: bold;
   }
-  
+
   .checkpoint-text {
+    font-family: var(--font-ui);
     font-size: 14px;
     line-height: 1.6;
-    color: #2d2d2d;
+    color: #4a5340;
     flex: 1;
   }
-  
+
   .reflection-section {
-    background: white;
-    padding: 1rem;
-    border-radius: 4px;
+    background: #fff;
+    padding: 1rem 1.1rem;
+    border-radius: 8px;
     margin-bottom: 1rem;
   }
-  
+
   .reflection-title {
-    font-weight: 700;
-    font-size: 13px;
-    color: #666;
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 10.5px;
+    color: rgba(51,71,34,0.5);
     margin-bottom: 8px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.12em;
   }
-  
+
   .reflection-question {
+    font-family: var(--font-heading);
     font-size: 14px;
     line-height: 1.6;
-    color: #2d2d2d;
+    color: #4a5340;
     margin-bottom: 12px;
     font-style: italic;
   }
-  
+
   .reflection-input {
     width: 100%;
     min-height: 80px;
     padding: 12px;
-    border: 2px solid #e5e5e5;
+    border: 2px solid rgba(51,71,34,0.12);
     border-radius: 8px;
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: var(--font-ui);
     font-size: 14px;
     line-height: 1.6;
     resize: vertical;
     transition: border-color 0.2s;
     margin-bottom: 8px;
   }
-  
+
   .reflection-input:focus {
     outline: none;
     border-color: #f9d53d;
   }
-  
+
   .reflection-input.filled {
     border-color: #4a7c59;
   }
-  
+
   .complete-day-btn {
-    background: #ee3c8a;
+    background: var(--pink);
     color: white;
-    padding: 12px 24px;
+    padding: 13px 24px;
     font-size: 14px;
     font-weight: 600;
+    letter-spacing: 0.02em;
     border: none;
-    border-radius: 8px;
+    border-radius: 100px;
     cursor: pointer;
     transition: all 0.2s;
     margin-top: 12px;
     width: 100%;
+    font-family: var(--font-ui);
   }
-  
+
   .complete-day-btn:hover:not(:disabled) {
-    background: #d946a6;
+    background: var(--pink-dark);
     transform: translateY(-1px);
   }
-  
+
   .complete-day-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
+
   .cta-section {
-    background: linear-gradient(135deg, #334722 0%, #4a7c59 100%);
-    padding: 2.5rem 1.5rem;
+    background: #1f2c15;
+    padding: 2.75rem 1.75rem;
     margin-top: 2rem;
-    border-radius: 12px;
+    border-radius: 18px;
     position: relative;
     overflow: hidden;
+    text-align: center;
   }
-  
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.03) 19px, rgba(255,255,255,0.03) 20px);
-    pointer-events: none;
-  }
-  
+
+  .cta-section > * { position: relative; z-index: 1; }
+
   .cta-eyebrow {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: #f9d53d;
+    font-family: var(--font-ui);
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
     text-transform: uppercase;
     margin-bottom: 1rem;
-    position: relative;
   }
-  
+
   .cta-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
+    font-family: var(--font-heading);
+    font-size: 26px;
     font-weight: 700;
     color: white;
     line-height: 1.3;
     margin-bottom: 1rem;
-    position: relative;
+    letter-spacing: -0.01em;
+    max-width: 32ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
   }
-  
-  .cta-text {
-    font-size: 16px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.9);
+
+  .cta-subtitle {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.7);
     margin-bottom: 1.5rem;
-    position: relative;
+    max-width: 38ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
   }
-  
+
+  .cta-callout {
+    margin-bottom: 1.5rem;
+    padding: 1.75rem 1.5rem;
+    background: #FBEDE7;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  }
+
+  .challenge-name {
+    display: block;
+    font-family: var(--font-heading);
+    color: var(--green);
+    font-weight: 900;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .challenge-date {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--pink-dark);
+    font-size: 13.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    padding-top: 9px;
+    border-top: 1px solid rgba(51,71,34,0.15);
+  }
+
+  .cta-callout-text {
+    font-family: var(--font-ui);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #5a6650;
+    margin-top: 0.85rem;
+  }
+
+  .cta-text {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 1.5rem;
+    max-width: 46ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-list {
+    list-style: none;
+    margin: 0 auto 1.75rem;
+    max-width: 400px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-list li {
+    font-family: var(--font-ui);
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.55;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cta-flower {
+    width: 46px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .cta-highlight {
+    background: rgba(249,213,61,0.1);
+    padding: 14px 18px;
+    border-radius: 12px;
+    border-left: 2px solid var(--gold);
+    margin: 0 auto 1.75rem;
+    max-width: 440px;
+    text-align: left;
+  }
+
+  .cta-highlight-text {
+    font-family: var(--font-ui);
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.92);
+    font-weight: 500;
+  }
+
   .cta-button {
-    background: #ee3c8a;
+    background: var(--pink);
     color: white;
-    padding: 16px 32px;
-    font-size: 16px;
+    padding: 16px 34px;
+    font-size: 15px;
     font-weight: 700;
+    letter-spacing: 0.03em;
     border: none;
-    border-radius: 8px;
+    border-radius: 100px;
     cursor: pointer;
     transition: all 0.3s;
     display: inline-block;
     text-decoration: none;
-    position: relative;
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: var(--font-ui);
+    box-shadow: 0 8px 22px rgba(238,60,138,0.32);
   }
-  
+
   .cta-button:hover {
-    background: #d946a6;
+    background: var(--pink-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(238, 60, 138, 0.4);
+    box-shadow: 0 12px 28px rgba(238, 60, 138, 0.4);
   }
-  
+
   @media (max-width: 640px) {
-    .container {
-      border-radius: 0;
-    }
-    
+    .header { padding: 2.25rem 1.4rem 1.75rem; }
+    .content { padding: 1.75rem 1.4rem; }
+
     h1 {
       font-size: 32px;
     }
-    
+
     .header-buttons {
       flex-direction: column;
     }
-    
+
     button {
       width: 100%;
     }
-    
+
     .day-header {
       padding: 0.875rem 1rem;
     }
-    
+
     .icon-box {
       width: 40px;
       height: 40px;
@@ -680,14 +805,11 @@
 <body>
 
 <div class="container">
-  <div class="header">
-    <div class="botanical-accent top-right">✨</div>
-    <div class="botanical-accent bottom-left">🌻</div>
-    
+  <div class="header textured">
     <div class="logo-section">
-      <img src="2.png" alt="Food for RX" style="width:160px;height:auto;filter:brightness(0) invert(1);">
+      <img src="2.png" alt="Food for RX" class="logo-image">
     </div>
-    
+
     <div class="eyebrow">Malnourished Tier · 21-Day Plan</div>
     
     <h1>Nourishment <span class="gradient-word">Rebalancing</span></h1>
@@ -713,11 +835,25 @@
     
     <div id="days"></div>
     
-    <div class="cta-section">
-      <div class="cta-eyebrow">Continue Your Journey</div>
-      <h2 class="cta-title">You've Completed 21 Days. Now Go Deeper.</h2>
-      <p class="cta-text">You've rebalanced your body and soul. Now continue the transformation with the 9 Aisles Prayer Journal—a 30-day interactive journey through each category with daily prompts, scripture, and space to process what God is teaching you about nourishment.</p>
-      <button class="cta-button" onclick="window.open('https://buy.stripe.com/5kQbITeKA4FF1MzdpY2ZO06', '_blank')">Get the 9 Aisles Prayer Journal ($17)</button>
+    <div class="cta-section textured">
+      <div class="cta-eyebrow">Are You Ready to Cross Over?</div>
+      <h2 class="cta-title">You've Made the Swaps. Now Let's Talk About What's Been Running the Show.</h2>
+      <p class="cta-subtitle">You've swapped what you physically eat. The Great Crossover helps you swap what you think, so you can change what you believe.</p>
+      <div class="cta-callout">
+        <span class="challenge-name">The Great Crossover</span>
+        <span class="challenge-date">From Deliverance to Dominion</span>
+        <p class="cta-callout-text">A gift for the woman ready to stop managing fear and start walking in the dominion Jesus already secured for her.</p>
+      </div>
+      <p class="cta-text">You just experienced how food can teach something deeper. That's the whole approach. Practical swaps as a doorway into fear, faith, and what you actually believe.</p>
+      <ul class="cta-list">
+        <li><img class="cta-flower" src="../assets/flower-journey.png" alt="">The Great Crossover book and companion workbook</li>
+        <li><img class="cta-flower" src="../assets/flower-word.png" alt="">Rooted in Scripture, not self-help</li>
+        <li><img class="cta-flower" src="../assets/flower-dominion.png" alt="">Written for the Bride who is ready to move from deliverance to subduing and having Dominion until the Bridegroom returns</li>
+      </ul>
+      <div class="cta-highlight">
+        <p class="cta-highlight-text">Be the first to know when it releases. Join the waitlist and you'll be the first to know when The Great Crossover opens.</p>
+      </div>
+      <a class="cta-button" href="#" onclick="return false;">Join the Waitlist</a>
     </div>
   </div>
 </div>
