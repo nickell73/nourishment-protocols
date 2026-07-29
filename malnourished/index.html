@@ -7,100 +7,6 @@
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* Access Code Modal */
-  #access-modal {
-    position: fixed;
-    inset: 0;
-    background: #334722;
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-  }
-
-  #access-modal.hidden {
-    display: none;
-  }
-
-  .modal-logo {
-    width: 160px;
-    filter: brightness(0) invert(1);
-    margin-bottom: 0.5rem;
-  }
-
-  .modal-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  .modal-subtitle {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
-    text-align: center;
-    max-width: 320px;
-  }
-
-  #modal-input {
-    padding: 14px 20px;
-    border-radius: 8px;
-    border: 2px solid rgba(255,255,255,0.3);
-    background: white;
-    font-size: 18px;
-    text-align: center;
-    letter-spacing: 4px;
-    width: 220px;
-    font-family: 'Courier New', monospace;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  #modal-input:focus {
-    border-color: #f9d53d;
-  }
-
-  #modal-btn {
-    background: #ee3c8a;
-    color: white;
-    padding: 14px 36px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: 'Nunito Sans', sans-serif;
-    transition: background 0.2s, transform 0.2s;
-  }
-
-  #modal-btn:hover {
-    background: #d946a6;
-    transform: translateY(-1px);
-  }
-
-  #modal-error {
-    color: #f9d53d;
-    font-size: 14px;
-    min-height: 20px;
-    text-align: center;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-10px); }
-    40% { transform: translateX(10px); }
-    60% { transform: translateX(-8px); }
-    80% { transform: translateX(8px); }
-  }
-
-  .shake {
-    animation: shake 0.4s ease;
-  }
-
   /* Footer badge */
   #footer-badge {
     position: fixed;
@@ -773,16 +679,6 @@
 </head>
 <body>
 
-<!-- Access Code Modal -->
-<div id="access-modal">
-  <img src="2.png" alt="Logo" class="modal-logo">
-  <div class="modal-title">Enter Your Access Code</div>
-  <p class="modal-subtitle">Enter the access code from your purchase to unlock your 21-day plan.</p>
-  <input type="password" id="modal-input" placeholder="••••" maxlength="20" onkeydown="if(event.key==='Enter') checkCode()">
-  <button id="modal-btn" onclick="checkCode()">Unlock</button>
-  <div id="modal-error"></div>
-</div>
-
 <div class="container">
   <div class="header">
     <div class="botanical-accent top-right">✨</div>
@@ -1367,29 +1263,6 @@ function exportPDF() {
   a.download = 'nourishment-progress.txt';
   a.click();
   URL.revokeObjectURL(url);
-}
-
-/* Access code modal */
-const ACCESS_CODE = '1234';
-const ACCESS_KEY = 'malnourished_access_code';
-
-function checkCode() {
-  const input = document.getElementById('modal-input');
-  const error = document.getElementById('modal-error');
-  if (input.value.trim() === ACCESS_CODE) {
-    localStorage.setItem(ACCESS_KEY, 'true');
-    document.getElementById('access-modal').classList.add('hidden');
-  } else {
-    error.textContent = 'Incorrect code. Please try again.';
-    input.classList.remove('shake');
-    void input.offsetWidth;
-    input.classList.add('shake');
-    input.value = '';
-  }
-}
-
-if (localStorage.getItem(ACCESS_KEY) === 'true') {
-  document.getElementById('access-modal').classList.add('hidden');
 }
 
 initializeDayData();
