@@ -68,6 +68,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         e.target.tagName, String(e.target.src || e.target.href || ''));
       return;
     }
+    // Browsers strip all detail from cross-origin script failures (a CDN
+    // fallback hiccup, e.g.) down to the literal string "Script error."
+    // with no filename/lineno - it carries no actionable information and,
+    // since it fires after the page has already rendered successfully,
+    // showing it to visitors as a red banner is misleading. Log it and
+    // move on instead of surfacing it.
+    if (e.message === 'Script error.' && !e.filename) {
+      console.warn('[bundle] suppressed opaque cross-origin script error (non-fatal, page already rendered):', e);
+      return;
+    }
     var p = document.body || document.documentElement;
     var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
     d.id = '__bundler_err';
