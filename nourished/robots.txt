@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nourished.nickellsblossominggarden.com/sitemap.xml
