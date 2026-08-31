@@ -775,6 +775,18 @@
   }
   #footer-badge:hover { opacity: 1; }
 </style>
+<!-- MailerLite Universal -->
+<script>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', 'YOUR_ACCOUNT_ID');
+</script>
+<!-- TODO: Replace YOUR_ACCOUNT_ID above with the account ID from the
+     MailerLite popup's Overview -> JavaScript tracking snippet section.
+     The Join the Waitlist popup will not open until this is set. -->
+<!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -808,7 +820,7 @@
       <p class="cta-subtitle">You've swapped what you physically eat. The Great Crossover helps you swap what you think, so you can change what you believe.</p>
       <div class="cta-callout">
         <span class="challenge-name">The Great Crossover</span>
-        <span class="challenge-date">From Deliverance to Dominion</span>
+        <span class="challenge-date">The Strategy That Takes You from Deliverance to Dominion</span>
         <p class="cta-callout-text">A gift for the woman ready to stop managing fear and start walking in the dominion Jesus already secured for her.</p>
       </div>
       <p class="cta-text">You just experienced how food can teach something deeper. That's the whole approach. Practical swaps as a doorway into fear, faith, and what you actually believe.</p>
@@ -820,7 +832,7 @@
       <div class="cta-highlight">
         <p class="cta-highlight-text">Be the first to know when it releases. Join the waitlist and you'll be the first to know when The Great Crossover opens.</p>
       </div>
-      <a class="cta-button" href="#" onclick="return false;">Join the Waitlist</a>
+      <button class="cta-button" onclick="ml('show', '4yFwnj', true)">Join the Waitlist</button>
     </div>
   </div>
 </div>
