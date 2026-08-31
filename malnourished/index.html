@@ -695,8 +695,9 @@
     font-style: italic;
     font-weight: 400;
     color: var(--pink-dark);
-    font-size: 13.5px;
-    letter-spacing: 0.08em;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
     text-transform: uppercase;
     margin-top: 2px;
     padding-top: 9px;
@@ -791,6 +792,7 @@
   }
 
   @media (max-width: 640px) {
+    .challenge-date { white-space: normal; }
     .header { padding: 2.25rem 1.4rem 1.75rem; }
     .content { padding: 1.75rem 1.4rem; }
 
